@@ -7,6 +7,12 @@ Keep up with Qiita, anywhere on the web.
 $ npm install
 $ edit source/{coffee,jade,stylus}/*.{coffee,jade,stylus}
 $ cake build
+$ cd ../
+$ zip qiita-notifications.zip \
+      qiita-notifications/manifest.json \
+      qiita-notifications/lib/* \
+      qiita-notifications/images/* \
+      qiita-notifications/build/*
 ```
 
 ##Requirements
