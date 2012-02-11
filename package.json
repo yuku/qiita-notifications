@@ -1,0 +1,8 @@
+{
+    "name": "qiita-notifications",
+    "version": "0.0.1",
+    "dependencies": {
+        "jade": "",
+        "stylus": ""
+    }
+}
