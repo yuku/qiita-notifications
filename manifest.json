@@ -4,6 +4,7 @@
     "description": "Keep up with Qiita anywhere on the web.",
     "browser_action": {
         "default_icon": "images/16.png",
+        "default_title": "Qiita",
         "popup": "build/popup.html"
     },
     "icons": {
@@ -11,7 +12,6 @@
         "48": "images/48.png"
     },
     "permissions": [
-        "tabs",
-        "http://qiita.com/*"
+        "http://qiita.com/"
     ]
 }
