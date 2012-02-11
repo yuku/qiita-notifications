@@ -72,5 +72,5 @@ $ ->
   checkCount()
   setInterval(
     -> checkCount()
-    1000 * 60
+    1000 * 150
   )
