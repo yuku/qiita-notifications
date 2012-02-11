@@ -1,6 +1,6 @@
 {
     "name": "Qiita Notifications",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Keep up with Qiita anywhere on the web.",
     "browser_action": {
         "default_icon": "images/16.png",
