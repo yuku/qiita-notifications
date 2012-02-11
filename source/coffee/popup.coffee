@@ -1,14 +1,4 @@
 $ ->
-  _.templateSettings = 
-    interpolate: /\{\{(.+?)\}\}/g
-    evaluate: /\{%(.+?)%\}/g
-    escape: /\{%-(.+?)%\}/g
-
-  templates = {}
-  for id in ['follow_user', 'update_posted_chunk', 'increment', 'stock']
-    templates[id] = $("##{id}").html()
-
-  list = $("#list").html()
   $ol = $('ol#notification-list')
 
   insertNotification = (action, object, created_at, seen, users) ->
@@ -24,15 +14,12 @@ $ ->
       content: content
     $ol.append($(_.template(list, data)))
 
-  console.log 'hoge'
-
   $('body')
     .delegate 'a', 'click', (e) ->
       chrome.tabs.create
         url: $(e.target).parents('a').attr('href')
         active: true
 
-  $.getJSON('http://qiita.com/api/notifications')
-    .success (data, textStatus) ->
-      for row in data
-        insertNotification row.action, row.object, row.created_at, row.seen, row.users
+  chrome.extension.sendRequest 'click', (content) ->
+    console.log content
+    $ol.html(content)

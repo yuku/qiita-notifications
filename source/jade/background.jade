@@ -2,5 +2,35 @@
 html
   head
     script(src='../lib/jquery-1.7.1.min.js')
+    script(src='../lib/underscore.js')
     script(src='background.js')
+    script#list(type='text/template')
+      li.notification(class='{% if (!seen) { %}unread{% } %}')
+        a(href='{{object}}')
+          div.notification-box
+            div.notification-left
+              div.user-icon
+                img.icon-m(src='{{image_url}}', alt='{{name}}')
+            div.notification-right
+              div.action-content {{content}}
+              div.action-status
+                span(class='{{action}}') {{created_at}}
+    script#follow_user(type='text/template')
+      span.bold {{names}}
+      span.bold followed
+      span you.
+    script#update_posted_chunk(type='text/template')
+      span.bold {{names}}
+      span added a comment to
+      span.bold the item you added a comment
+      span .
+    script#increment(type='text/template')
+      span.bold {{names}}
+      span did
+      span.bold ++
+      span to your item.
+    script#stock(type='text/template')
+      span.bold {{names}}
+      span.bold stocked
+      span to your item.
   body
