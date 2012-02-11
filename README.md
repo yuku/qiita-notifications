@@ -10,8 +10,8 @@ Keep up with Qiita, anywhere on the web.
 #Build
 
 ```shell
+$ cd path/to/qiita-notifications
 $ npm install
-$ edit source/{coffee,jade,stylus}/*.{coffee,jade,stylus}
 $ cake build
 ```
 
