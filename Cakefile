@@ -4,7 +4,6 @@ fs      = require 'fs'
 {debug} = require 'util'
 stylus  = require 'stylus'
 jade    = require 'jade'
-_       = require 'underscore'
 
 
 srcDir = 'source'
@@ -56,12 +55,11 @@ task 'build', 'Build source files', (options) ->
       for file in results
         filename = file.split('/')[2].split('.')[0]
         log "compile #{file} -> #{targetDir}/#{filename}.html"
-        fs.readFile file, 'utf8', (err, content) ->
-          html = jade.compile(content, {filename: file})()
-          fs.writeFile "#{targetDir}/#{filename}.html"
+        content = fs.readFileSync file
+        html = jade.compile(content, {filename: file})()
+        fs.writeFileSync "#{targetDir}/#{filename}.html"
                      , html
                      , 'utf8'
-                     , (err) -> debug err if err
 
   if 'stylus' in targets
     walk srcStylusDir, (err, results) ->
@@ -70,10 +68,10 @@ task 'build', 'Build source files', (options) ->
       for file in results
         filename = file.split('/')[2].split('.')[0]
         log "compile #{file} -> #{targetDir}/#{filename}.css"
-        fs.readFile file, 'utf8', (err, content) ->
-          stylus(content)
-            .render (err, css) -> 
-              fs.writeFile "#{targetDir}/#{filename}.css"
-                         , css
-                         , 'utf8'
-                         , (err) -> debug err if err
+        content = fs.readFileSync file, 'utf8'
+        stylus(content)
+          .render (err, css) -> 
+            fs.writeFile "#{targetDir}/#{filename}.css"
+                        , css
+                        , 'utf8'
+                        , (err) -> debug err if err
