@@ -23,6 +23,18 @@ img
 div#notification-label
   color #4a4a4a
   padding 5px 10px
+  font-size 14px
+
+  .link
+    float right
+
+    .small
+      font-size 12px
+      margin-right 3px
+
+    a#qiita
+      color #59bb0c
+      text-decoration none
 
 li.notification
   width 100%

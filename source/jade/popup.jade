@@ -5,5 +5,9 @@ html
     script(src='../lib/jquery-1.7.1.min.js')
     script(src='popup.js')
   body
-    div#notification-label Notification
+    div#notification-label
+      span Notifications
+      span.link
+        span.small goto
+        a#qiita(href='http://qiita.com') Qiita
     ol#notification-list
