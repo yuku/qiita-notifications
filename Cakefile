@@ -39,6 +39,12 @@ task 'build', 'Build source files', (options) ->
     .split(',')
     .filter (target) -> target in ['coffee', 'jade', 'stylus']
 
+  try
+    stats = fs.statSync targetDir 
+  catch e
+    log "mkdir #{targetDir}"
+    fs.mkdirSync targetDir 
+
   if 'coffee' in targets
     walk srcCoffeeDir, (err, results) ->
       for file in results
