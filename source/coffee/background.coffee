@@ -55,6 +55,10 @@ checkCount = ->
     )
 
 
+readAll = ->
+  content.seen = true for content in contents.value
+
+
 chrome.extension.onRequest.addListener (req, sender, res) ->
   if req.action is 'click'
     $.when(contents.get())
@@ -62,6 +66,7 @@ chrome.extension.onRequest.addListener (req, sender, res) ->
         chrome.browserAction.setBadgeText text: '0'
         chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
         res(parseContentsData(data))
+        readAll()
       )
       .fail(->
         res(templates.login_required)
