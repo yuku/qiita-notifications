@@ -99,3 +99,6 @@ li.notification:hover
 
 li.notification.unread
   background-color rgba(149,236,73,0.5)
+
+#loader
+  text-align center
