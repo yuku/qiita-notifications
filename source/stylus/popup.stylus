@@ -102,3 +102,8 @@ li.notification.unread
 
 #loader
   text-align center
+
+li.login-required
+  text-align center
+  font-size 14px
+  color #4a4a4a

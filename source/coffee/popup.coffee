@@ -9,5 +9,4 @@ $ ->
         active: true
 
   chrome.extension.sendRequest 'click', (content) ->
-    debugger
     $ol.html(content)
