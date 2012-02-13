@@ -29,6 +29,7 @@ $ cake build
 
 - Show '-' to logged out user on the icon.
 - Show 'Login required' on the popup.
+- Once popup is opened change seen of all notifications to true.
 
 ##0.2.3
 
@@ -50,4 +51,3 @@ $ cake build
 ##0.1.0
 
 - Can show notifications on the popup.
-- 
