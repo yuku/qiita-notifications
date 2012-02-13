@@ -22,3 +22,32 @@ $ cake build
 3. check [Developer mode]
 4. click [Load unpacked extension]
 5. select qiita-notifications directory
+
+#History
+
+##0.2.4
+
+- Show '-' to logged out user on the icon.
+- Show 'Login required' on the popup.
+
+##0.2.3
+
+- Change icon.
+
+##0.2.2
+
+- Added a link to qiita.com to top of the popup.
+
+##0.2.1
+
+- Modify crawling interval to 150 sec.
+
+##0.2.0
+
+- Can show the number of unread notifications.
+- Cache contents and count.
+
+##0.1.0
+
+- Can show notifications on the popup.
+- 
