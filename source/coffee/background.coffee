@@ -58,10 +58,10 @@ checkCount = ->
 chrome.extension.onRequest.addListener (req, sender, res) ->
   if req is 'click'
     $.when(contents.get())
-      .done((html) ->
+      .done((data) ->
         chrome.browserAction.setBadgeText text: '0'
         chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
-        res(html)
+        res(parseContentsData(data))
       )
       .fail(->
         res(templates.login_required)
@@ -76,7 +76,7 @@ $ ->
       dfd = $.Deferred()
       $.ajax 'http://qiita.com/api/notifications'
         success: (data, status, jqXHR) =>
-          @value = parseContentsData(data)
+          @value = data
           $.get 'http://qiita.com/api/notifications/read' # call read api
           dfd.resolve(@value)
         error: ->
