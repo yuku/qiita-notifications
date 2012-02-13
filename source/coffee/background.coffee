@@ -1,6 +1,8 @@
 # cache
-CONTENTS = null
-COUNT = 0
+templates = {}
+list_template = null
+contents = null
+count = 0
 
 # underscore
 _.templateSettings = 
@@ -8,10 +10,8 @@ _.templateSettings =
   evaluate: /\{%(.+?)%\}/g
   escape: /\{%-(.+?)%\}/g
 
-templates = {}
-list_template = null
 
-build = (row) ->
+buildRow = (row) ->
   content = _.template templates[row.action]
                       , names: (user.display_name for user in row.users).join ', '
   data = 
@@ -25,8 +25,8 @@ build = (row) ->
   _.template list_template, data
 
 getContents = ->
-  CONTENTS or $.getJSON 'http://qiita.com/api/notifications', (data) ->
-                CONTENTS = (build(row) for row in data).join('')
+  contents or $.getJSON 'http://qiita.com/api/notifications', (data) ->
+                contents = (buildRow(row) for row in data).join('')
 
 # call read api
 read = -> $.get 'http://qiita.com/api/notifications/read'
@@ -39,7 +39,7 @@ checkCount = ->
 
 
 updateIcon = (count) ->
-  COUNT = count
+  count = count
   chrome.browserAction.setBadgeText text: count.toString()
   color = if count is 0 then [100, 100, 100, 255] else [204, 60, 41, 255]
   chrome.browserAction.setBadgeBackgroundColor color: color
@@ -49,16 +49,16 @@ RequestHandler = (req, sender, res) ->
   ClickReqHandler(res) if req is 'click'
 
 ClickReqHandler = (res) ->
-  if COUNT > 0
-    CONTENTS = null  # cache clear
+  if count > 0
+    contents = null  # cache clear
     $.when(getContents(), read())
       .done () ->
         updateIcon(0)
-        res(CONTENTS)
+        res(contents)
   else
     $.when(getContents())
       .done () ->
-        res(CONTENTS)
+        res(contents)
 
 chrome.extension.onRequest.addListener RequestHandler
 
