@@ -8,5 +8,5 @@ $ ->
         url: $a.attr('href')
         active: true
 
-  chrome.extension.sendRequest 'click', (content) ->
+  chrome.extension.sendRequest action: 'click', (content) ->
     $ol.html(content)

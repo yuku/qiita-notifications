@@ -56,7 +56,7 @@ checkCount = ->
 
 
 chrome.extension.onRequest.addListener (req, sender, res) ->
-  if req is 'click'
+  if req.action is 'click'
     $.when(contents.get())
       .done((data) ->
         chrome.browserAction.setBadgeText text: '0'
