@@ -26,7 +26,7 @@ class Cache
       @value
 
 
-parseContentsData = (contentsData) ->
+parseNotificationData = (notifications) ->
   parseRow = (row) ->
     content = _.template templates[row.action]
                         , names: (user.display_name for user in row.users).join ', '
@@ -39,14 +39,23 @@ parseContentsData = (contentsData) ->
       seen: row.seen
       content: content
     _.template templates.notification, data
-  (parseRow(row) for row in contentsData).join('')
+  (parseRow(row) for row in notifications).join('')
+
+
+parseChunkData = (chunks) ->
+  parseRow = (row) ->
+    data = {}
+    for own key, value of row
+      data[key] = value
+    _.template(templates.chunk, data)
+  (parseRow(row) for row in chunks).join('')
 
 
 checkCount = ->
   $.when(count.get())
-    .done((count) ->
-      chrome.browserAction.setBadgeText text: count.toString()
-      color = if count is 0 then [100, 100, 100, 255] else [204, 60, 41, 255]
+    .done((data) ->
+      chrome.browserAction.setBadgeText text: data.count.toString()
+      color = if data.count is 0 then [100, 100, 100, 255] else [204, 60, 41, 255]
       chrome.browserAction.setBadgeBackgroundColor color: color
     )
     .fail(->
@@ -56,53 +65,52 @@ checkCount = ->
 
 
 readAll = ->
-  content.seen = true for content in contents.value
+  content.seen = true for content in contents.notifications.value
 
 
 chrome.extension.onRequest.addListener (req, sender, res) ->
   if req.action is 'click'
-    $.when(contents.get())
+    $.when(contents[req.menu].get())
       .done((data) ->
-        chrome.browserAction.setBadgeText text: '0'
-        chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
-        res(parseContentsData(data))
-        readAll()
+        if req.menu is 'notifications'
+          chrome.browserAction.setBadgeText text: '0'
+          chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
+          res(parseNotificationData(data))
+          readAll()
+          $.get 'http://qiita.com/api/notifications/read' # call read api
+        else
+          res(parseChunkData(data))
       )
       .fail(->
         res(templates.login_required)
       )
 
 
-$ ->
-  # initialize cache objects
-  contents = new Cache(
-    1000 * 60
+cacheFactory = (pathname, ttl) ->
+  new Cache(
+    ttl or 1000 * 60
     ->
       dfd = $.Deferred()
-      $.ajax 'http://qiita.com/api/notifications'
+      $.ajax "http://qiita.com#{pathname}",
         success: (data, status, jqXHR) =>
           @value = data
-          $.get 'http://qiita.com/api/notifications/read' # call read api
           dfd.resolve(@value)
         error: ->
           dfd.reject()
         dataType: 'json'
       return dfd
   )
-  count = new Cache(
-    1000 * 60
-    ->
-      dfd = $.Deferred()
-      $.ajax 'http://qiita.com/api/notifications/count',
-        success: (data, status, jqXHR) =>
-          @value = data.count
-          dfd.resolve(@value)
-        error: ->
-          dfd.reject()
-        dataType: 'json'
-      return dfd
-  )
-  templates.notification = $('#list').html()
+
+
+$ ->
+  # initialize cache objects
+  contents =
+    notifications: cacheFactory('/api/notifications')
+    following: cacheFactory('/following')
+    'all-posts': cacheFactory('/public')
+  count = cacheFactory('/api/notifications/count')
+  templates.notification = $('#notification').html()
+  templates.chunk = $('#chunk').html()
   templates.login_required = $('#login-required').html()
   for id in ['follow_user', 'update_posted_chunk', 'increment', 'stock']
     templates[id] = $("##{id}").html()

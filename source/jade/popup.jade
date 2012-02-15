@@ -5,11 +5,24 @@ html
     script(src='../lib/jquery-1.7.1.min.js')
     script(src='popup.js')
   body
-    div#notification-label
-      span Notifications
+    div#header
+      span.menu
+        span.notifications Notifications
+        span.following Following
+        span.all-posts All Posts
       span.link
         span.small goto
         a#qiita(href='http://qiita.com') Qiita
-    ol#notification-list
-      li#loader
-        img(src='../images/ajax-loader.gif')
+    div#contents
+      div.notifications
+        ol.notification-list
+          li.loader
+            img(src='../images/ajax-loader.gif')
+      div.following
+        ol.chank-list 
+          li.loader
+            img(src='../images/ajax-loader.gif')
+      div.all-posts
+        ol.chank-list 
+          li.loader
+            img(src='../images/ajax-loader.gif')

@@ -4,16 +4,30 @@ html
     script(src='../lib/jquery-1.7.1.min.js')
     script(src='../lib/underscore.js')
     script(src='background.js')
-    script#list(type='text/template')
+    script#chunk(type='text/template')
+      li.chunk
+        a(href='{{url}}',target='_blank')
+          div.box
+            div.left
+              div.user-icon
+                img.icon-m(src='{{user.profile_image_url}}', alt='{{user.display_name}}')
+            div.right
+              div.content
+                div.tags
+                  {% for (var i = 0; i < tags.length; i++) { %} {% var tag = tags[i] %} <img class='icon-s' src='http://qiita.com{{tag.iconUrl}}'/> {{tag.name}} {% } %}
+                div.title {{title}}
+              div.status
+                span.no-padding {{created_at}}
+    script#notification(type='text/template')
       li.notification(class='{% if (!seen) { %}unread{% } %}')
         a(href='{{object}}',target='_blank')
-          div.notification-box
-            div.notification-left
+          div.box
+            div.left
               div.user-icon
                 img.icon-m(src='{{image_url}}', alt='{{name}}')
-            div.notification-right
-              div.action-content {{content}}
-              div.action-status
+            div.right
+              div.content {{content}}
+              div.status
                 span(class='{{action}}') {{created_at}}
     script#follow_user(type='text/template')
       span.bold {{names}}
