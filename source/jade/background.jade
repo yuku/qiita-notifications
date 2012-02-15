@@ -6,7 +6,7 @@ html
     script(src='background.js')
     script#list(type='text/template')
       li.notification(class='{% if (!seen) { %}unread{% } %}')
-        a(href='{{object}}')
+        a(href='{{object}}',target='_blank')
           div.notification-box
             div.notification-left
               div.user-icon
