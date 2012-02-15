@@ -9,7 +9,6 @@ $ ->
           $("#contents > .#{menu}").addClass('active')
           chrome.extension.sendRequest {action: 'click', menu: menu}
                                      , (content) =>
-            console.log this
             $("#contents > .#{menu} > ol").html(content)
 
   $('.menu > .notifications').trigger('click')
