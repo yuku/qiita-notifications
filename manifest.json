@@ -1,6 +1,6 @@
 {
     "name": "Qiita Notifications",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "background_page": "build/background.html",
     "description": "Keep up with Qiita anywhere on the web.",
     "browser_action": {
