@@ -25,11 +25,11 @@ $ cake build
 
 #History
 
-##0.3.0
+##0.3.1
 
 - Highlight unread chunks.
 
-##0.2.5
+##0.3.0
 
 - Add 'Following' and 'All Posts' tabs.
 - Close popup window when a link is clicked.
