@@ -5,7 +5,7 @@ html
     script(src='../lib/underscore.js')
     script(src='background.js')
     script#chunk(type='text/template')
-      li.chunk
+      li.chunk(class='{% if (!seen) { %}unread{% } %}')
         a(href='{{url}}',target='_blank')
           div.box
             div.left
