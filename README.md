@@ -25,6 +25,10 @@ $ cake build
 
 #History
 
+##0.3.0
+
+- Highlight unread chunks.
+
 ##0.2.5
 
 - Add 'Following' and 'All Posts' tabs.
