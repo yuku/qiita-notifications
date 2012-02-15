@@ -47,10 +47,10 @@ parseNotificationData = (notifications) ->
 
 parseChunkData = (chunks, menu) ->
   is_first = latest_id[menu] is 0
+  max_id = 0
   parseRow = (row) ->
     data = {}
-    for own key, value of row
-      data[key] = value
+    max_id = row.id if max_id < row.id
     if latest_id[menu] < row.id
       if is_first
         data.seen = true
@@ -59,8 +59,12 @@ parseChunkData = (chunks, menu) ->
         data.seen = false
     else
       data.seen = true
+    for own key, value of row
+      data[key] = value
     _.template(templates.chunk, data)
-  (parseRow(row) for row in chunks).join('')
+  html = (parseRow(row) for row in chunks).join('')
+  latest_id[menu] = max_id
+  html
 
 
 checkCount = ->
@@ -89,9 +93,9 @@ chrome.extension.onRequest.addListener (req, sender, res) ->
           chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
           res(parseNotificationData(data))
           $.get 'http://qiita.com/api/notifications/read' # call read api
+          readAll(req.menu)
         else
           res(parseChunkData(data, req.menu))
-        readAll(req.menu)
       )
       .fail(->
         res(templates.login_required)
