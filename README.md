@@ -25,6 +25,11 @@ $ cake build
 
 #History
 
+##0.2.5
+
+- Add 'Following' and 'All Posts' tabs.
+- Close popup window when a link is clicked.
+
 ##0.2.4
 
 - Show '-' to logged out user on the icon.
