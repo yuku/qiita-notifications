@@ -25,6 +25,10 @@ $ cake build
 
 #History
 
+##0.3.2
+
+- Support languages: en_US, ja
+
 ##0.3.1
 
 - Highlight unread chunks.
