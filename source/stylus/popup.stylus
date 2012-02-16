@@ -60,7 +60,7 @@ div#header
 #contents
   .notifications
   .following
-  .all-posts
+  .all_posts
     display none
 
   .active

@@ -1,0 +1,11 @@
+{
+    "notifications": {
+        "message": "あなたへのお知らせ"
+    },
+    "following": {
+        "message": "フォロー中"
+    },
+    "all_posts": {
+        "message": "すべての投稿"
+    }
+}

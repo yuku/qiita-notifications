@@ -15,5 +15,6 @@
     "permissions": [
         "chrome.i18n.getMessage",
         "http://qiita.com/"
-    ]
+    ],
+    "default_locale": "en_US"
 }

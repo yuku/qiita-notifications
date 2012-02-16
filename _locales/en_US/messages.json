@@ -1,0 +1,11 @@
+{
+    "notifications": {
+        "message": "Notification"
+    },
+    "following": {
+        "message": "Following"
+    },
+    "all_posts": {
+        "message": "All Posts"
+    }
+}

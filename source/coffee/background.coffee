@@ -3,7 +3,7 @@ count = null
 contents = null
 latest_id = 
   following: 0
-  "all-posts": 0
+  all_posts: 0
 templates = {}
 
 
@@ -123,7 +123,7 @@ $ ->
   contents =
     notifications: cacheFactory('/api/notifications')
     following: cacheFactory('/following')
-    'all-posts': cacheFactory('/public')
+    all_posts: cacheFactory('/public')
   count = cacheFactory('/api/notifications/count')
   templates.notification = $('#notification').html()
   templates.chunk = $('#chunk').html()
