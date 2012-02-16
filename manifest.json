@@ -13,6 +13,7 @@
         "48": "images/48.png"
     },
     "permissions": [
+        "chrome.i18n.getMessage",
         "http://qiita.com/"
     ]
 }
