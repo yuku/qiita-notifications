@@ -27,7 +27,7 @@ $ cake build
 
 ##0.3.2
 
-- Support languages: en_US, ja
+- Support languages: en, ja
 
 ##0.3.1
 
