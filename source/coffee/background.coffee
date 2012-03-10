@@ -128,7 +128,7 @@ $ ->
   templates.notification = $('#notification').html()
   templates.chunk = $('#chunk').html()
   templates.login_required = $('#login-required').html()
-  for id in ['follow_user', 'update_posted_chunk', 'increment', 'stock']
+  for id in ['follow_user', 'update_posted_chunk', 'increment', 'stock', 'reply']
     templates[id] = $("##{id}").html()
 
   checkCount()
