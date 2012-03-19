@@ -25,6 +25,10 @@ $ cake build
 
 #History
 
+##0.3.3
+
+- Add Google Analytics
+
 ##0.3.2
 
 - Support languages: en, ja
