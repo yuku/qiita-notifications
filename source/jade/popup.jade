@@ -4,12 +4,27 @@ html
     link(rel='stylesheet',type='text/css',href='popup.css')
     script(src='../lib/jquery-1.7.1.min.js')
     script(src='popup.js')
+    script
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-30142578-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = 'https://ssl.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+      $(function() {
+        $('span.menu > span').click(function() {
+          console.log($(this).data('id'));
+          _gaq.push(['_trackEvent', $(this).data('id'), 'clicked']);
+        });
+      });
   body
     div#header
       span.menu
-        span.notifications
-        span.following
-        span.all_posts
+        span.notifications(data-id='notifications')
+        span.following(data-id='following')
+        span.all_posts(data-id='all posts')
       span.link
         span.small goto
         a#qiita(href='http://qiita.com',target='_blank') Qiita
