@@ -1,5 +1,6 @@
 fs      = require 'fs'
 {spawn} = require 'child_process'
+{exec} = require 'child_process'
 {log}   = require 'util'
 {debug} = require 'util'
 stylus  = require 'stylus'
@@ -81,3 +82,9 @@ task 'build', 'Build source files', (options) ->
                         , css
                         , 'utf8'
                         , (err) -> debug err if err
+
+task 'zip', ->
+  exec 'zip qiita-notifications.zip manifest.json lib/* images/* build/* _locales/*/*',
+    (err, stdout, stderr) ->
+      debug stderr if stderr
+      log stdout if stdout
