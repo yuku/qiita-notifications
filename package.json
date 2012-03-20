@@ -1,6 +1,26 @@
 {
     "name": "qiita-notifications",
     "version": "0.3.3",
+
+    "description": "Keep up with Qiita anywhere on the web.",
+    "icons": {
+        "16": "images/16.png",
+        "48": "images/48.png"
+    },
+    "default_locale": "en",
+
+    "browser_action": {
+        "default_icon": "images/19.png",
+        "default_title": "Qiita",
+        "popup": "build/popup.html"
+    },
+
+    "background_page": "build/background.html",
+    "permissions": [
+        "chrome.i18n.getMessage",
+        "http://qiita.com/"
+    ],
+
     "dependencies": {
         "jade": "",
         "stylus": ""

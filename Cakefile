@@ -36,9 +36,9 @@ walk = (dir, callback) ->
 option '-t', '--target [TARGET]', 'target source'
 
 task 'build', 'Build source files', (options) ->
-  targets = (options.target or 'coffee,jade,stylus')
+  targets = (options.target or 'js,html,css,manifest')
     .split(',')
-    .filter (target) -> target in ['coffee', 'jade', 'stylus']
+    .filter (target) -> target in ['js', 'html', 'css', 'manifest']
 
   try
     stats = fs.statSync targetDir 
@@ -46,7 +46,7 @@ task 'build', 'Build source files', (options) ->
     log "mkdir #{targetDir}"
     fs.mkdirSync targetDir 
 
-  if 'coffee' in targets
+  if 'js' in targets
     walk srcCoffeeDir, (err, results) ->
       for file in results
         filename = file.split('/')[2].split('.')[0]
@@ -55,7 +55,7 @@ task 'build', 'Build source files', (options) ->
     coffee.stderr.on 'data', (data) -> debug data
     coffee.stdout.on 'data', (data) -> log data
 
-  if 'jade' in targets
+  if 'html' in targets
     walk srcJadeDir, (err, results) ->
       debug err if err
 
@@ -68,7 +68,7 @@ task 'build', 'Build source files', (options) ->
                      , html
                      , 'utf8'
 
-  if 'stylus' in targets
+  if 'css' in targets
     walk srcStylusDir, (err, results) ->
       debug err if err
 
@@ -82,6 +82,15 @@ task 'build', 'Build source files', (options) ->
                         , css
                         , 'utf8'
                         , (err) -> debug err if err
+
+  if 'manifest' in targets
+    log 'package.json -> manifest.json'
+    fs.readFile "#{__dirname}/package.json", (err, data) ->
+      throw err if err
+      package = JSON.parse data
+      delete package.dependencies
+      fs.writeFile "#{__dirname}/manifest.json", JSON.stringify(package), (err) -> 
+        throw err if err
 
 task 'zip', ->
   exec 'zip qiita-notifications.zip manifest.json lib/* images/* build/* _locales/*/*',
