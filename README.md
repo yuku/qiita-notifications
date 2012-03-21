@@ -25,6 +25,10 @@ $ cake build
 
 #History
 
+##0.3.4
+
+- Show the number of unread chunks next to menu buttons.
+
 ##0.3.3
 
 - Translate not only buttons but also items.
