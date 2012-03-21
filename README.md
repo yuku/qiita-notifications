@@ -28,6 +28,7 @@ $ cake build
 ##0.3.4
 
 - Show the number of unread chunks next to menu buttons.
+- Add 'https://qiita.com/' to permissions.
 
 ##0.3.3
 
