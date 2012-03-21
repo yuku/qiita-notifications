@@ -63,6 +63,12 @@ checkCount = ->
       chrome.browserAction.setBadgeText text: '-'
       chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
     )
+  for menu in ['following', 'all_posts']
+    $.when(contents[menu].get())
+      .done((chunks) ->
+        count = if latest_id[menu] isnt 0 then [row for row in chunks when latest_id[menu] < row.id].length else 0
+        chrome.extension.sendRequest {action: 'count', menu: menu, count: count}
+      )
 
 
 readAll = (menu) ->
