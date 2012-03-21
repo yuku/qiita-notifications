@@ -7,5 +7,53 @@
     },
     "all_posts": {
         "message": "すべての投稿"
+    },
+    "follow_user": {
+        "message": "<span class='bold'>$names$</span><span>があなたを</span><span class='bold'>フォローしました。</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "update_posted_chunk": {
+        "message": "<span class='bold'>$names$</span><span>があなたの</span><span class='bold'>コメントしたアイテム</span><span>にコメントしました。</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "increment": {
+        "message": "<span class='bold'>$names$</span><span>があなたの投稿を</span><span class='bold'>++</span><span>しました。</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "stock": {
+        "message": "<span class='bold'>$names$</span><span>があなたのアイテムを</span><span class='bold'>ストック</span><span>しました。</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "reply": {
+        "message": "<span class='bold'>$names$</span><span>が</span><span class='bold'>コメントしました。</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "login_required": {
+        "message": "ログインして下さい。"
     }
 }

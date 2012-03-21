@@ -7,5 +7,53 @@
     },
     "all_posts": {
         "message": "All Posts"
+    },
+    "follow_user": {
+        "message": "<span class='bold'>$names$ followed</span><span>you.</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "update_posted_chunk": {
+        "message": "<span class='bold'>$names$</span><span>added a comment to </span><span class='bold'>the item you added a comment</span><span>.</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "increment": {
+        "message": "<span class='bold'>$names$</span><span>did</span><span class='bold'>++</span><span>to your item.</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "stock": {
+        "message": "<span class='bold'>$names$ stocked</span><span>your item.</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "reply": {
+        "message": "<span class='bold'>$names$</span><span>posted a</span><span class='bold'>comment.</span>",
+        "placeholders": {
+            "names": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "login_required": {
+        "message": "Lobin Required"
     }
 }

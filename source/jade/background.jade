@@ -29,30 +29,9 @@ html
               div.content {{content}}
               div.status
                 span(class='{{action}}') {{created_at}}
-    script#follow_user(type='text/template')
-      span.bold {{names}}
-      span.bold followed
-      span you.
-    script#update_posted_chunk(type='text/template')
-      span.bold {{names}}
-      span added a comment to
-      span.bold the item you added a comment
-      span .
-    script#increment(type='text/template')
-      span.bold {{names}}
-      span did
-      span.bold ++
-      span to your item.
-    script#stock(type='text/template')
-      span.bold {{names}}
-      span.bold stocked
-      span to your item.
-    script#reply(type='text/template')
-      span.bold {{names}}
-      span posted a
-      span.bold comment.
     script#login-required(type='text/template')
-      li.login-required Login Required
+      li.login-required
+        a(href='http://qiita.com/',target='_blank') {{content}}
     script
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-30142578-1']);

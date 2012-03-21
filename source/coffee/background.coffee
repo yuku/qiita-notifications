@@ -14,25 +14,10 @@ _.templateSettings =
   escape: /\{%-(.+?)%\}/g
 
 
-class Cache
-  # ttl: time to live
-  constructor: (@ttl, @reflesh) ->
-    @last = null
-    @value = null
-
-  get: ->
-    if @last is null or Date.now() - @last > @ttl
-      # update the value
-      @last = Date.now()
-      @reflesh()
-    else
-      @value
-
-
 parseNotificationData = (notifications) ->
   parseRow = (row) ->
-    content = _.template templates[row.action]
-                        , names: (user.display_name for user in row.users).join ', '
+    content = chrome.i18n.getMessage(row.action,
+      (user.display_name for user in row.users).join ', ')
     data = 
       action: row.action
       object: row.object
@@ -92,14 +77,30 @@ chrome.extension.onRequest.addListener (req, sender, res) ->
           chrome.browserAction.setBadgeText text: '0'
           chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
           res(parseNotificationData(data))
-          $.get 'http://qiita.com/api/notifications/read' # call read api
+          $.get('http://qiita.com/api/notifications/read') # call read api
           readAll(req.menu)
         else
           res(parseChunkData(data, req.menu))
       )
       .fail(->
-        res(templates.login_required)
+        content = chrome.i18n.getMessage('login_required')
+        res(_.template(templates.login_required, {content: content}))
       )
+
+
+class Cache
+  # ttl: time to live
+  constructor: (@ttl, @reflesh) ->
+    @last = null
+    @value = null
+
+  get: ->
+    if @last is null or Date.now() - @last > @ttl
+      # update the value
+      @last = Date.now()
+      @reflesh()
+    else
+      @value
 
 
 cacheFactory = (pathname, ttl) ->
