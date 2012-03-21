@@ -18,6 +18,7 @@
     "background_page": "build/background.html",
     "permissions": [
         "chrome.i18n.getMessage",
+        "notifications",
         "https://qiita.com/",
         "http://qiita.com/"
     ],
