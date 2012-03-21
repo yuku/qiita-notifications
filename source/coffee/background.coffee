@@ -55,6 +55,31 @@ parseChunkData = (chunks, menu) ->
   html
 
 
+showNotificationData = (data) ->
+  data
+    .forEach((d) ->
+      window.webkitNotifications.createNotification(
+        d.users[0].profile_image_url
+        ''
+        chrome.i18n.getMessage(
+          d.action
+          (user.display_name for user in d.users).join(', ')
+        ).replace(/<[^>]*>/g, '')
+      ).show()
+    )
+
+
+showChunkData = (data) ->
+  data
+    .forEach((d) ->
+      window.webkitNotifications.createNotification(
+        d.user.profile_image_url
+        d.title
+        d.tags.map((tag) -> "##{tag.name}").join(' ')
+      ).show()
+    )
+
+
 checkCount = ->
   $.when(count.get())
     .done((data) ->
