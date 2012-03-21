@@ -27,11 +27,11 @@ $ cake build
 
 ##0.3.3
 
-- Add Google Analytics
+- Translate not only buttons but also items.
 
 ##0.3.2
 
-- Support languages: en, ja
+- Support languages: en, ja.
 
 ##0.3.1
 
