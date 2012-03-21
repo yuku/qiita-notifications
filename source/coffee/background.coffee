@@ -4,6 +4,9 @@ contents = null
 latest_id = 
   following: 0
   all_posts: 0
+unread_count =
+  following: 0
+  all_posts: 0
 templates = {}
 
 
@@ -66,8 +69,11 @@ checkCount = ->
   for menu in ['following', 'all_posts']
     $.when(contents[menu].get())
       .done((chunks) ->
-        count = if latest_id[menu] isnt 0 then [row for row in chunks when latest_id[menu] < row.id].length else 0
-        chrome.extension.sendRequest {action: 'count', menu: menu, count: count}
+        unread_count[menu] =
+          if latest_id[menu] isnt 0
+            [row for row in chunks when latest_id[menu] < row.id].length
+          else
+            0
       )
 
 
@@ -92,6 +98,8 @@ chrome.extension.onRequest.addListener (req, sender, res) ->
         content = chrome.i18n.getMessage('login_required')
         res(_.template(templates.login_required, {content: content}))
       )
+  if req.action is 'getUnreadCount' and req.menu of unread_count
+    res(unread_count[req.menu])
 
 
 class Cache
@@ -141,6 +149,6 @@ $ ->
   checkCount()
 
   setInterval(
-    -> checkCount()
+    checkCount
     1000 * 150
   )
