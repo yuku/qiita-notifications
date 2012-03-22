@@ -119,6 +119,7 @@ checkCount = ->
 
 readAll = (menu) ->
   content.seen = true for content in contents[menu].value
+  unread_count[menu] = 0
 
 
 chrome.extension.onRequest.addListener (req, sender, res) ->
