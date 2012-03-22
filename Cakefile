@@ -1,18 +1,16 @@
-fs      = require 'fs'
-{spawn} = require 'child_process'
-{exec} = require 'child_process'
-{log}   = require 'util'
-{debug} = require 'util'
-stylus  = require 'stylus'
-jade    = require 'jade'
+fs            = require 'fs'
+{spawn, exec} = require 'child_process'
+{log, debug}  = require 'util'
+stylus        = require 'stylus'
+jade          = require 'jade'
 
+srcDir        = 'source'
+targetDir     = 'build'
 
-srcDir = 'source'
-targetDir = 'build'
+srcCoffeeDir  = "#{srcDir}/coffee"
+srcStylusDir  = "#{srcDir}/stylus"
+srcJadeDir    = "#{srcDir}/jade"
 
-srcCoffeeDir = "#{srcDir}/coffee"
-srcStylusDir = "#{srcDir}/stylus"
-srcJadeDir = "#{srcDir}/jade"
 
 # It walks through a directory and invoke callback function with array of file names.
 walk = (dir, callback) ->
@@ -34,6 +32,7 @@ walk = (dir, callback) ->
 
 
 option '-t', '--target [TARGET]', 'target source'
+
 
 task 'build', 'Build source files', (options) ->
   targets = (options.target or 'js,html,css,manifest')
