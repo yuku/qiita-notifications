@@ -25,6 +25,11 @@ $ cake build
 
 #History
 
+##0.3.5
+
+- Show unread notifications using webNotifications.
+- Add 'notifications' to permissions.
+
 ##0.3.4
 
 - Show the number of unread chunks next to menu buttons.
