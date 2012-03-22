@@ -5,6 +5,7 @@ latest_id =
   following: 0
   all_posts: 0
 unread_count =
+  notifications: 0
   following: 0
   all_posts: 0
 templates = {}
@@ -64,7 +65,7 @@ showNotificationData = (data) ->
         chrome.i18n.getMessage(
           d.action
           (user.display_name for user in d.users).join(', ')
-        ).replace(/<[^>]*>/g, '')
+        ).replace(/<[^>]*>/g, ' ').replace('  ', ' ')
       ).show()
     )
 
@@ -85,6 +86,14 @@ checkCount = ->
     .done((data) ->
       chrome.browserAction.setBadgeText text: data.count.toString()
       color = if data.count is 0 then [100, 100, 100, 255] else [204, 60, 41, 255]
+      # show webNotifications
+      new_count = data.count - unread_count.notifications
+      if new_count > 0
+        $.when(contents.notifications.get())
+          .done((data) ->
+            showNotificationData(data[0...new_count])
+          )
+      unread_count.notifications = data.count
       chrome.browserAction.setBadgeBackgroundColor color: color
     )
     .fail(->
