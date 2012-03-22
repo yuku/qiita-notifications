@@ -25,7 +25,7 @@ $ cake build
 
 #History
 
-##0.3.5
+##0.4.0
 
 - Show unread notifications using webNotifications.
 - Add 'notifications' to permissions.
