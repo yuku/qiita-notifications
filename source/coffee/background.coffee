@@ -58,15 +58,21 @@ parseChunkData = (chunks, menu) ->
 
 showNotificationData = (data) ->
   data
-    .forEach((d) ->
-      window.webkitNotifications.createNotification(
+    .forEach((d, i) ->
+      notify = window.webkitNotifications.createNotification(
         d.users[0].profile_image_url
         ''
         chrome.i18n.getMessage(
           d.action
           (user.display_name for user in d.users).join(', ')
         ).replace(/<[^>]*>/g, ' ').replace('  ', ' ')
-      ).show()
+      )
+      notify.show()
+      setTimeout(
+        ->
+          notify.cancel()
+        (i + 3) * 1000
+      )
     )
 
 
