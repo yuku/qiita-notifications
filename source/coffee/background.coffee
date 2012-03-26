@@ -1,3 +1,36 @@
+q = @qiita
+q.LOG_LEVEL = q.logLevels.DEBUG
+
+
+settingManager =
+  defaults:
+    'notifyNotifications' : true
+    'lengthNotifications' : 5
+    'notifyFollowing'     : true
+    'lengthFollowing'     : 5
+    'notifyAllPosts'      : false
+    'lengthAllPosts'      : 5
+
+  getAll: ->
+    res = {}
+    res[name] = @get name for name of @defaults
+    res
+
+  get: (name) ->
+    q.logger.debug "get:#{name}"
+    if localStorage[name]?
+      JSON.parse localStorage.getItem name
+    else
+      @defaults[name]
+
+  set: (name, value) ->
+    localStorage.setItem name, JSON.stringify value
+
+
+
+
+
+
 # cache
 count = null
 contents = null
@@ -57,6 +90,7 @@ parseChunkData = (chunks, menu) ->
 
 
 showNotificationData = (data) ->
+  length = settingManager.get 'lengthNotifications'
   data
     .forEach((d, i) ->
       notify = window.webkitNotifications.createNotification(
@@ -68,11 +102,12 @@ showNotificationData = (data) ->
         ).replace(/<[^>]*>/g, ' ').replace('  ', ' ')
       )
       notify.show()
-      setTimeout(
-        ->
-          notify.cancel()
-        (i + 3) * 1000
-      )
+      if length > 0
+        setTimeout(
+          ->
+            notify.cancel()
+          (i + 1) * length * 1000
+        )
     )
 
 
@@ -92,13 +127,15 @@ checkCount = ->
     .done((data) ->
       chrome.browserAction.setBadgeText text: data.count.toString()
       color = if data.count is 0 then [100, 100, 100, 255] else [204, 60, 41, 255]
-      # show webNotifications
-      new_count = data.count - unread_count.notifications
-      if new_count > 0
-        $.when(contents.notifications.get())
-          .done((data) ->
-            showNotificationData(data[0...new_count])
-          )
+      if settingManager.get 'notifyNotifications'
+        # show webNotifications
+        new_count = data.count - unread_count.notifications
+        q.logger.debug new_count
+        if new_count > 0
+          $.when(contents.notifications.get())
+            .done((data) ->
+              showNotificationData(data[0...new_count])
+            )
       unread_count.notifications = data.count
       chrome.browserAction.setBadgeBackgroundColor color: color
     )
@@ -139,8 +176,21 @@ chrome.extension.onRequest.addListener (req, sender, res) ->
         content = chrome.i18n.getMessage('login_required')
         res(_.template(templates.login_required, {content: content}))
       )
-  if req.action is 'getUnreadCount' and req.menu of unread_count
+  else if req.action is 'getUnreadCount' and req.menu of unread_count
     res(unread_count[req.menu])
+  else if req.action is 'settings'
+    switch req.type
+      when 'set'
+        settingManager.set req.name, req.value
+      when 'get'
+        if req.name is 'all'
+          getAll = settingManager.getAll()
+          q.logger.debug 'getAll', getAll
+          res(getAll)
+        else
+          get = settingManager.get req.name
+          q.logger.debug "get:#{req.name}", get
+          res(get)
 
 
 class Cache
