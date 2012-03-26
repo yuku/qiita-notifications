@@ -16,6 +16,7 @@
     },
 
     "background_page": "build/background.html",
+    "options_page": "build/options.html",
     "permissions": [
         "chrome.i18n.getMessage",
         "notifications",
