@@ -1,0 +1,50 @@
+!!!5
+html
+  head
+    link(rel='stylesheet',type='text/css',href='../lib/bootstrap.css')
+    link(rel='stylesheet',type='text/css',href='options.css')
+    script(src='../lib/jquery-1.7.1.min.js')
+    script(src='../lib/underscore.js')
+    script(src='qiita.js')
+    script(src='options.js')
+  body
+    .navbar
+      .navbar-inner
+        .container
+          a.brand(href='#') Qiita Notifications
+    .container
+      section
+        .page-header
+          h1 Desktop Notification
+        .row
+          .span8
+            form.form-horizontal
+              fieldset
+                .control-group
+                  label.control-label(for='notifyNotifications') Notifications
+                  .controls
+                    input#notifyNotifications(type='checkbox')
+                    \ Enable
+                .control-group
+                  .controls
+                    input#lengthNotifications(type='number',size='2',min='0')
+                    .help-inline sec
+                .control-group
+                  label.control-label(for='notifyFollowing') Following
+                  .controls
+                    input#notifyFollowing(type='checkbox')
+                    \ Enable
+                .control-group
+                  .controls
+                    input#lengthFollowing(type='number',size='2',min='0')
+                    .help-inline sec
+                .control-group
+                  label.control-label(for='notifyAllPosts') All posts
+                  .controls
+                    input#notifyAllPosts(type='checkbox')
+                    \ Enable
+                .control-group
+                  .controls
+                    input#lengthAllPosts(type='number',size='2',min='0')
+                    .help-inline sec
+          .span4
