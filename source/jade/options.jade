@@ -18,27 +18,44 @@ html
         .page-header
           h1 Desktop Notification
         .row
-          .span8
-            form.form-horizontal
-              fieldset
-                .control-group
-                  label.control-label(for='notifyTime') Notifing Time
-                  .controls
-                    input#notifyTime(type='number',size='2',min='0')
-                    .help-inline sec
-                .control-group
-                  label.control-label(for='notifyNotifications') Notifications
-                  .controls
-                    input#notifyNotifications(type='checkbox')
-                    \ Enable
-                .control-group
-                  label.control-label(for='notifyFollowing') Following
-                  .controls
-                    input#notifyFollowing(type='checkbox')
-                    \ Enable
-                .control-group
-                  label.control-label(for='notifyAllPosts') All Posts
-                  .controls
-                    input#notifyAllPosts(type='checkbox')
-                    \ Enable
-          .span4
+          .span2
+            label.control-label(for='notifyTime') Time
+          .span10
+            input#notifyTime.span1(type='number',size='2',min='0')
+            .help-inline sec
+        .row
+          .span2
+            label.control-label(for='notifyNotifications') Notifications
+          .span10
+            input#notifyNotifications(type='checkbox')
+            \ Enable
+        .row
+          .span2
+            label.control-label(for='notifyFollowing') Following
+          .span10
+            input#notifyFollowing(type='checkbox')
+            \ Enable
+        .row
+          .span2
+            label.control-label(for='notifyAllPosts') All Posts
+          .span10
+            input#notifyAllPosts(type='checkbox')
+            \ Enable
+      section
+        .page-header
+          h1 About
+        .row
+          .span2
+            span Author
+          .span10
+            div Yuku Takahashi
+            div
+              \ Follow me on 
+              a(href='https://twitter.com/taka84u9',target='_blank') Twitter
+            div
+              \ Github:
+              a(href='https://github.com/taka84u9',target='_blank') https://github.com/taka84u9
+            div
+              \ Qiita:
+              a(href='https://qiita.com/users/taka84u9',target='_blank') https://qiita.com/users/taka84u9
+
