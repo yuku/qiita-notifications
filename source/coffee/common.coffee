@@ -11,7 +11,7 @@ q.logLevels =
 q.LOG_LEVEL = q.logLevels.ERROR
 
 q.logger =
-  printLog: (n, a, o) -> 
+  printLog: (n, a, o) ->
     if o
       console.log "#{n}: #{a} : %o", o
     else
