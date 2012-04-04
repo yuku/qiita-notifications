@@ -25,6 +25,10 @@ $ cake build
 
 #History
 
+##1.0.0
+
+- Notify new posts via webNotifications.
+
 ##0.4.0
 
 - Show unread notifications using webNotifications.
