@@ -1,6 +1,12 @@
 q = @qiita
 q.LOG_LEVEL = q.logLevels.DEBUG
 
+# underscore
+_.templateSettings =
+  interpolate: /\{\{(.+?)\}\}/g
+  evaluate: /\{%(.+?)%\}/g
+  escape: /\{%-(.+?)%\}/g
+
 setSetting = (name, val, response) ->
   q.logger.debug "set:#{name}", val
   chrome.extension.sendRequest(
@@ -42,7 +48,6 @@ $ ->
     type   : 'get'
     name   : 'all'
   }, (msg) ->
-    q.logger.debug 'msg', msg
     for name, value of msg
       switch typeof value
         when 'string'  then initInputText   name, value
