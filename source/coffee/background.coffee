@@ -10,11 +10,11 @@ Info = Backbone.Model.extend()
 Notifications = Backbone.Collection.extend
   initialize: ->
     @fetch()
-    @update_badge()
+    @update()
   model: Info
   url: "#{DOMAIN}/api/notifications"
   count: 0
-  update_badge : ->
+  update: ->
     $.ajax "#{DOMAIN}/api/notifications/count",
       success: (data, status, jqXHR) =>
         prev = @count
@@ -58,12 +58,12 @@ Item = Backbone.Model.extend(
 )
 
 Items = Backbone.Collection.extend
-  initialize: -> @load()
+  initialize: -> @update()
   model: Item
   max_id: Infinity
   read_max_id: Infinity
   count: 0
-  load: ->
+  update: ->
     $.when(@fetch())
       .done((data) =>
         @count = _.filter(data, (d) => d.id > @read_max_id).length
@@ -86,6 +86,9 @@ Items = Backbone.Collection.extend
             -> notification.cancel()
             (i + 1) * time * 1000
           )
+  readAll:
+    @models.each (model) -> model.set('seen', true)
+    @count = 0
 
 Following = Items.extend(url: "#{DOMAIN}/following", cls: 'Following')
 AllPosts   = Items.extend(url: "#{DOMAIN}/public", cls: 'AllPosts')
@@ -114,33 +117,24 @@ settingManager =
 
 
 $ ->
-  notifications = new Notifications
-  following = new Following
-  all_posts = new AllPosts
+  collections =
+    notifications: new Notifications
+    following: new Following
+    all_posts: new AllPosts
 
   setInterval(
     ->
-      notifications.update_badge()
-      following.load()
-      all_posts.load()
+      collection.update() for collection in collections
     3 * 60 * 1000
   )
 
   chrome.extension.onRequest.addListener (req, sender, res) ->
     if req.action is 'click'
-      if req.menu is 'notifications'
-        res notifications
-      else if req.menu is 'following'
-        res following
-      else if req.menu is 'all_posts'
-        res all_posts
+      collection = collections[req.action]
+      collection.readAll()
+      res collection
     else if req.action is 'getUnreadCount'
-      if req.menu is 'notifications'
-        res notifications.count
-      else if req.menu is 'following'
-        res following.count
-      else if req.menu is 'all_posts'
-        res all_posts.count
+      res collections[req.menu].count
     else if req.action is 'settings'
       switch req.type
         when 'set'
