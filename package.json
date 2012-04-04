@@ -1,31 +1,42 @@
 {
-    "name": "qiita-notifications",
-    "version": "0.4.0",
+  "name": "qiita-notifications",
+  "version": "0.4.0",
+  "manifest_version": 2,
 
-    "description": "Keep up with Qiita anywhere on the web.",
-    "icons": {
-        "16": "images/16.png",
-        "48": "images/48.png"
-    },
-    "default_locale": "en",
+  "description": "Keep up with Qiita anywhere on the web.",
+  "icons": {
+    "16": "images/16.png",
+    "48": "images/48.png"
+  },
+  "default_locale": "en",
 
-    "browser_action": {
-        "default_icon": "images/19.png",
-        "default_title": "Qiita",
-        "popup": "build/popup.html"
-    },
+  "browser_action": {
+    "default_icon": "images/19.png",
+    "default_title": "Qiita",
+    "popup": "build/popup.html"
+  },
 
-    "background_page": "build/background.html",
-    "options_page": "build/options.html",
-    "permissions": [
-        "chrome.i18n.getMessage",
-        "notifications",
-        "https://qiita.com/",
-        "http://qiita.com/"
-    ],
+  "background": {
+    "scripts": [
+      "lib/jquery.js",
+      "lib/underscore.js",
+      "lib/backbone.js",
+      "build/common.js",
+      "build/models.js",
+      "build/background.js"
+    ]
+  },
 
-    "dependencies": {
-        "jade": "",
-        "stylus": ""
-    }
+  "options_page": "build/options.html",
+  "permissions": [
+    "chrome.i18n.getMessage",
+    "notifications",
+    "https://qiita.com/",
+    "http://qiita.com/"
+  ],
+
+  "dependencies": {
+    "jade": "",
+    "stylus": ""
+  }
 }
