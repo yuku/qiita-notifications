@@ -15,6 +15,7 @@ Notifications = Backbone.Collection.extend
   url: "#{DOMAIN}/api/notifications"
   count: 0
   update: ->
+    q.logger.debug 'Notifications#update'
     $.ajax "#{DOMAIN}/api/notifications/count",
       success: (data, status, jqXHR) =>
         prev = @count
@@ -29,6 +30,7 @@ Notifications = Backbone.Collection.extend
         chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
       dataType: 'json'
   notify: (count) ->
+    q.logger.debug 'Notifications#notify'
     if settingManager.get 'notifyNotifications'
       time = settingManager.get 'notifyTime'
       @models[0...count].forEach (model, i) ->
@@ -65,15 +67,17 @@ Items = Backbone.Collection.extend
   read_max_id: Infinity
   count: 0
   update: ->
+    q.logger.debug "#{@cls}#update"
     $.when(@fetch())
       .done((data) =>
         @count = _.filter(data, (d) => d.id > @read_max_id).length
         data[0...@count].forEach((d) -> d.seen = false)
         @notify _.filter(data, (d) => d.id > @max_id).length
-        @max_id = _.max(data, (d) -> d.id).id
+        @max_id = _.max(data, (d) -> d.id).id - 1
       )
       .fail( => @reset())
   notify: (count) ->
+    q.logger.debug "#{@cls}#notify"
     if settingManager.get "notify#{@cls}"
       time = settingManager.get 'notifyTime'
       @models[0...count].forEach (model, i) ->
@@ -126,8 +130,10 @@ $ ->
 
   setInterval(
     ->
-      collection.update() for collection in collections
-    3 * 60 * 1000
+      collections.notifications.update()
+      collections.following.update()
+      collections.all_posts.update()
+    60 * 1000
   )
 
   chrome.extension.onRequest.addListener (req, sender, res) ->
