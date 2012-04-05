@@ -23,7 +23,7 @@ Notifications = Backbone.Collection.extend
         chrome.browserAction.setBadgeText text: @count.toString()
         chrome.browserAction.setBadgeBackgroundColor color: color
         if (diff = @count - prev) > 0
-          $.when(@fetch()).done( => @notify diff)
+          $.when(@fetch()).done( => @notify diff).fail( => @reset())
       error: ->
         chrome.browserAction.setBadgeText text: '?'
         chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
@@ -71,6 +71,7 @@ Items = Backbone.Collection.extend
         @notify _.filter(data, (d) => d.id > @max_id).length
         @max_id = _.max(data, (d) -> d.id).id
       )
+      .fail( => @reset())
   notify: (count) ->
     if settingManager.get "notify#{@cls}"
       time = settingManager.get 'notifyTime'
@@ -86,7 +87,7 @@ Items = Backbone.Collection.extend
             -> notification.cancel()
             (i + 1) * time * 1000
           )
-  readAll:
+  readAll: ->
     @models.each (model) -> model.set('seen', true)
     @count = 0
 
