@@ -47,7 +47,7 @@ Notifications = Backbone.Collection.extend
             (i + 1) * time * 1000
           )
   readAll: ->
-    @models.each (model) -> model.set('seen', true)
+    @each (model) -> model.set('seen', true)
     @count = 0
     chrome.browserAction.setBadgeText text: '0'
     chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
@@ -67,7 +67,7 @@ Items = Backbone.Collection.extend
     $.when(@fetch())
       .done((data) =>
         @count = _.filter(data, (d) => d.id > @read_max_id).length
-        @collection.models[0...@count].each((model) -> model.set('seen', false))
+        data[0...@count].forEach((d) -> d.seen = false)
         @notify _.filter(data, (d) => d.id > @max_id).length
         @max_id = _.max(data, (d) -> d.id).id
       )
@@ -88,7 +88,7 @@ Items = Backbone.Collection.extend
             (i + 1) * time * 1000
           )
   readAll: ->
-    @models.each (model) -> model.set('seen', true)
+    @each (model) -> model.set('seen', true)
     @count = 0
 
 Following = Items.extend(url: "#{DOMAIN}/following", cls: 'Following')
@@ -131,7 +131,7 @@ $ ->
 
   chrome.extension.onRequest.addListener (req, sender, res) ->
     if req.action is 'click'
-      collection = collections[req.action]
+      collection = collections[req.menu]
       collection.readAll()
       res collection
     else if req.action is 'getUnreadCount'
