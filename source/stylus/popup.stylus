@@ -54,6 +54,10 @@ div#header
       color #59bb0c
       text-decoration none
 
+    a#option
+      img
+        height: 13px
+
 .loader
   text-align center
 
