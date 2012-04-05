@@ -131,10 +131,12 @@ $ ->
   )
 
   chrome.extension.onRequest.addListener (req, sender, res) ->
+    q.logger.debug 'req', req
     if req.action is 'click'
       collection = collections[req.menu]
-      collection.readAll()
       res collection
+    else if req.action is 'read'
+      collections[req.menu].readAll()
     else if req.action is 'getUnreadCount'
       res collections[req.menu].count
     else if req.action is 'settings'

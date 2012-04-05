@@ -2,7 +2,7 @@ q = @qiita
 q.LOG_LEVEL = q.logLevels.DEBUG
 
 InfoView = Backbone.View.extend
-  render: -> 
+  render: ->
     content = chrome.i18n.getMessage(
       @model.action
       (user.display_name for user in @model.users).join(', ')
@@ -32,10 +32,12 @@ InfoView = Backbone.View.extend
 
 NotificationsView = Backbone.View.extend
   initialize: (options) ->
+    q.logger.debug 'NotificationsView#initialize'
     $(@el).html('')
     for info in @collection
       view = new InfoView model: info
       $(@el).append view.render()
+    chrome.extension.sendRequest(action: 'read', menu: 'notifications')
 
 ItemView = Backbone.View.extend
   render: ->
@@ -68,10 +70,12 @@ ItemView = Backbone.View.extend
 
 ItemsView = Backbone.View.extend
   initialize: (options) ->
+    q.logger.debug 'ItemsView#initialize'
     $(@el).html('')
     for item in @collection
       view = new ItemView model: item
       $(@el).append view.render()
+    chrome.extension.sendRequest(action: 'read', menu: options.menu)
 
 $ ->
   for menu in ['notifications', 'following', 'all_posts']
@@ -96,6 +100,7 @@ $ ->
                 new ItemsView
                   collection: collection
                   el: $("#contents > .#{menu} > ol")
+                  menu: menu
           )
       chrome.extension.sendRequest(
         {action: 'getUnreadCount', menu: menu}
