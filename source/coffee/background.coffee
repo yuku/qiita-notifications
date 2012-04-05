@@ -49,6 +49,7 @@ Notifications = Backbone.Collection.extend
   readAll: ->
     @each (model) -> model.set('seen', true)
     @count = 0
+    $.get "#{DOMAIN}/api/notifications/read"
     chrome.browserAction.setBadgeText text: '0'
     chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
 
