@@ -76,9 +76,9 @@ Items = Backbone.Collection.extend
         @read_max_id = @max_id = @max((model) -> model.id).id
       else
         @count = @filter((model) => model.id > @read_max_id).length
-        @models[0...@count].forEach (model) -> model.seen = false
-        if (new_item_count = @filter((model) => model.id > @max_id).length) > 0
-          @notify new_item_count
+        new_item_count = @filter((model) => model.id > @max_id).length
+        @models[0...@count].forEach (model) -> model.set 'seen', false
+        @notify new_item_count if new_item_count > 0
         @max_id = @max((model) -> model.id).id
   model: Item
   max_id: Infinity
