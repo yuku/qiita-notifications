@@ -71,11 +71,15 @@ Item = Backbone.Model.extend
 Items = Backbone.Collection.extend
   initialize: ->
     @bind 'reset', =>
-      @count = @filter((model) -> model.id > @read_max_id).length
-      @models[0...@count].forEach (model) -> model.seen = false
-      if (new_item_count = @filter((model) -> model.id > @max_id).length) > 0
-        @notify new_item_count
-      @max_id = @max((model) -> model.id).id
+      if @max_id is Infinity and @read_max_id is Infinity
+        @count = 0
+        @read_max_id = @max_id = @max((model) -> model.id).id
+      else
+        @count = @filter((model) => model.id > @read_max_id).length
+        @models[0...@count].forEach (model) -> model.seen = false
+        if (new_item_count = @filter((model) => model.id > @max_id).length) > 0
+          @notify new_item_count
+        @max_id = @max((model) -> model.id).id
   model: Item
   max_id: Infinity
   read_max_id: Infinity
@@ -98,6 +102,7 @@ Items = Backbone.Collection.extend
           )
   readAll: ->
     @each (model) -> model.set('seen', true)
+    @read_max_id = @max_id
     @count = 0
   getCount: -> @count
 
