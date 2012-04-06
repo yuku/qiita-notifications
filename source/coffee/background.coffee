@@ -5,30 +5,39 @@ DOMAIN = 'https://qiita.com'
 
 # Backbone
 
-Info = Backbone.Model.extend()
+q.b = badge = new Backbone.Model
 
-Notifications = Backbone.Collection.extend
-  initialize: ->
-    @fetch()
-    @update()
-  model: Info
+_.extend badge,
+  defaults:
+    count: 0
+  url: "#{DOMAIN}/api/notifications/count"
+
+badge.bind 'change:count', ->
+  prev = @previous 'count'
+  curr = @get 'count'
+  if prev isnt curr
+    if curr is null
+      text = '?'
+      color = [100, 100, 100, 100]
+    else if curr is 0
+      text = '0'
+      color = [100, 100, 100, 255]
+    else
+      text = curr.toSting()
+      color = [204, 60, 41, 255]
+    chrome.browserAction.setBadgeText text: text
+    chrome.browserAction.setBadgeBackgroundColor color: color
+
+    @trigger 'increment', curr - prev if prev < curr
+
+badge.bind 'increment', (count) ->
+  notifications.fetch
+    success: ->
+      notifications.notify count
+
+q.n = notifications = new Backbone.Collection
+_.extend notifications,
   url: "#{DOMAIN}/api/notifications"
-  count: 0
-  update: ->
-    q.logger.debug 'Notifications#update'
-    $.ajax "#{DOMAIN}/api/notifications/count",
-      success: (data, status, jqXHR) =>
-        prev = @count
-        @count = data.count
-        color = if @count is 0 then [100, 100, 100, 255] else [204, 60, 41, 255]
-        chrome.browserAction.setBadgeText text: @count.toString()
-        chrome.browserAction.setBadgeBackgroundColor color: color
-        if (diff = @count - prev) > 0
-          $.when(@fetch()).done( => @notify diff).fail( => @reset())
-      error: ->
-        chrome.browserAction.setBadgeText text: '?'
-        chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
-      dataType: 'json'
   notify: (count) ->
     q.logger.debug 'Notifications#notify'
     if settingManager.get 'notifyNotifications'
@@ -50,32 +59,27 @@ Notifications = Backbone.Collection.extend
           )
   readAll: ->
     @each (model) -> model.set('seen', true)
-    @count = 0
     $.get "#{DOMAIN}/api/notifications/read"
-    chrome.browserAction.setBadgeText text: '0'
-    chrome.browserAction.setBadgeBackgroundColor color: [100, 100, 100, 255]
+    badge.set 'count', 0
+  getCount: -> badge.get 'count'
 
-Item = Backbone.Model.extend(
+
+Item = Backbone.Model.extend
   defaults:
     seen: true
-)
 
 Items = Backbone.Collection.extend
-  initialize: -> @update()
+  initialize: ->
+    @bind 'reset', =>
+      @count = @filter((model) -> model.id > @read_max_id).length
+      @models[0...@count].forEach (model) -> model.seen = false
+      if (new_item_count = @filter((model) -> model.id > @max_id).length) > 0
+        @notify new_item_count
+      @max_id = @max((model) -> model.id).id
   model: Item
   max_id: Infinity
   read_max_id: Infinity
   count: 0
-  update: ->
-    q.logger.debug "#{@cls}#update"
-    $.when(@fetch())
-      .done((data) =>
-        @count = _.filter(data, (d) => d.id > @read_max_id).length
-        data[0...@count].forEach((d) -> d.seen = false)
-        @notify _.filter(data, (d) => d.id > @max_id).length
-        @max_id = _.max(data, (d) -> d.id).id - 1
-      )
-      .fail( => @reset())
   notify: (count) ->
     q.logger.debug "#{@cls}#notify"
     if settingManager.get "notify#{@cls}"
@@ -86,7 +90,7 @@ Items = Backbone.Collection.extend
           model.get('title')
           model.get('tags').map((tag) -> "##{tag.name}").join(' ')
         )
-        notification.show90
+        notification.show()
         if time > 0
           setTimeout(
             -> notification.cancel()
@@ -95,9 +99,17 @@ Items = Backbone.Collection.extend
   readAll: ->
     @each (model) -> model.set('seen', true)
     @count = 0
+  getCount: -> @count
 
-Following = Items.extend(url: "#{DOMAIN}/following", cls: 'Following')
-AllPosts   = Items.extend(url: "#{DOMAIN}/public", cls: 'AllPosts')
+q.f = following = new Items
+_.extend following,
+  url: "#{DOMAIN}/following"
+  cls: 'Following'
+
+q.a = all_posts = new Items
+_.extend all_posts,
+  url: "#{DOMAIN}/public"
+  cls: 'AllPosts'
 
 settingManager =
   defaults:
@@ -121,40 +133,55 @@ settingManager =
   set: (name, value) ->
     localStorage.setItem name, JSON.stringify value
 
+getCollection = (menu) ->
+  if menu is 'notifications'
+    return notifications
+  else if menu is 'following'
+    return following
+  else if menu is 'all_posts'
+    return all_posts
 
-$ ->
-  collections =
-    notifications: new Notifications
-    following: new Following
-    all_posts: new AllPosts
 
+chrome.extension.onRequest.addListener (req, sender, res) ->
+  collection = getCollection req.menu
+  if req.action is 'click'
+    res collection
+  else if req.action is 'read'
+    collection.readAll()
+  else if req.action is 'getUnreadCount'
+    res collection.getCount()
+  else if req.action is 'settings'
+    switch req.type
+      when 'set'
+        settingManager.set req.name, req.value
+      when 'get'
+        if req.name is 'all'
+          getAll = settingManager.getAll()
+          q.logger.debug 'getAll', getAll
+          res(getAll)
+        else
+          get = settingManager.get req.name
+          q.logger.debug "get:#{req.name}", get
+          res(get)
+
+
+$ -> 
+  update = ->
+    q.logger.debug 'update'
+    badge.fetch(
+      error: -> badge.set 'count', null
+    )
+    following.fetch(
+      error: -> following.reset()
+    )
+    all_posts.fetch(
+      error: -> all_posts.reset()
+    )
   setInterval(
-    ->
-      collections.notifications.update()
-      collections.following.update()
-      collections.all_posts.update()
+    update
     60 * 1000
   )
 
-  chrome.extension.onRequest.addListener (req, sender, res) ->
-    q.logger.debug 'req', req
-    if req.action is 'click'
-      collection = collections[req.menu]
-      res collection
-    else if req.action is 'read'
-      collections[req.menu].readAll()
-    else if req.action is 'getUnreadCount'
-      res collections[req.menu].count
-    else if req.action is 'settings'
-      switch req.type
-        when 'set'
-          settingManager.set req.name, req.value
-        when 'get'
-          if req.name is 'all'
-            getAll = settingManager.getAll()
-            q.logger.debug 'getAll', getAll
-            res(getAll)
-          else
-            get = settingManager.get req.name
-            q.logger.debug "get:#{req.name}", get
-            res(get)
+  # initialize
+  update()
+  notifications.fetch()
