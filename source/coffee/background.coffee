@@ -23,7 +23,7 @@ badge.bind 'change:count', ->
       text = '0'
       color = [100, 100, 100, 255]
     else
-      text = curr.toSting()
+      text = curr.toString()
       color = [204, 60, 41, 255]
     chrome.browserAction.setBadgeText text: text
     chrome.browserAction.setBadgeBackgroundColor color: color
