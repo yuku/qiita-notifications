@@ -92,7 +92,7 @@ task 'build', 'Build source files', (options) ->
         throw err if err
 
 task 'zip', ->
-  exec 'zip qiita-notifications.zip contents/**',
+  exec 'cd contents; zip -r ../qiita-notifications.zip ./',
     (err, stdout, stderr) ->
       debug stderr if stderr
       log stdout if stdout
