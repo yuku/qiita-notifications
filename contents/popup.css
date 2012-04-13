@@ -1,0 +1,143 @@
+body {
+  width: 400px;
+  margin: 0px;
+  background-color: #fff;
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Kaku Gothic Pro", "Lucida Grande", Verdana, Arial, Meiryo, "メイリオ", sans-serif;
+}
+ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+img {
+  border: none;
+  vertical-aligh: bottom;
+}
+.bold {
+  font-weight: bold;
+}
+.icon-m {
+  width: 30px;
+  height: 30px;
+}
+.icon-s {
+  width: 10px;
+  height: 10px;
+}
+div#header {
+  color: #4a4a4a;
+  padding: 5px 0;
+  font-size: 14px;
+}
+div#header .menu span {
+  margin-right: 5px;
+  padding: 3px 5px;
+  cursor: pointer;
+  border: 1px solid #fff;
+}
+div#header .menu span.active {
+  background-color: rgba(149,236,73,0.50);
+  border: 1px solid #ddd;
+}
+div#header .menu span:hover {
+  border: 1px solid #ddd;
+}
+div#header .link {
+  float: right;
+}
+div#header .link .small {
+  font-size: 12px;
+  margin-right: 3px;
+}
+div#header .link a#qiita {
+  color: #59bb0c;
+  text-decoration: none;
+}
+div#header .link img {
+  height: 13px;
+}
+.loader {
+  text-align: center;
+}
+#contents .notifications,
+#contents .following,
+#contents .all_posts {
+  display: none;
+}
+#contents .active {
+  display: block;
+}
+#contents li {
+  width: 100%;
+  float: left;
+  border-top: solid 1px #ddd;
+  font-weight: 300;
+}
+#contents li a:link,
+#contents li a:active,
+#contents li a:visited {
+  color: #4a4a4a;
+  text-decoration: none;
+}
+#contents li .left {
+  float: left;
+  width: 45px;
+}
+#contents li .left .user-icon {
+  margin: 10px 5px 10px 10px;
+}
+#contents li .right {
+  float: right;
+  width: 345px;
+  padding: 5px;
+}
+#contents li .right .content {
+  font-size: 11px;
+  margin-top: 3px;
+}
+#contents li .right .content span {
+  margin-right: 3px;
+}
+#contents li .right .content .bold {
+  color: #117ec6;
+}
+#contents li .right .content .title {
+  font-size: 14px;
+}
+#contents li .right .status {
+  font-size: 10px;
+  height: 16px;
+  padding-top: 5px;
+}
+#contents li .right .status span {
+  height: 16px;
+  padding: 3px 0px 3px 20px;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+#contents li .right .status .follow_user {
+  background-image: url("../images/favorite.png");
+}
+#contents li .right .status .update_posted_chunk {
+  background-image: url("../images/post.png");
+}
+#contents li .right .status .increment {
+  background-image: url("../images/post.png");
+}
+#contents li .right .status .stock {
+  background-image: url("../images/stock.png");
+}
+#contents li .right .status .no-padding {
+  padding: 3px 0px 3px;
+}
+#contents li:hover {
+  background-color: #bcf48b;
+}
+#contents li.unread {
+  background-color: rgba(149,236,73,0.50);
+}
+#contents li.login-required {
+  text-align: center;
+  font-size: 14px;
+  color: #4a4a4a;
+}

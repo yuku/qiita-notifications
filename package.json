@@ -13,7 +13,7 @@
   "browser_action": {
     "default_icon": "images/19.png",
     "default_title": "Qiita",
-    "default_popup": "build/popup.html"
+    "default_popup": "popup.html"
   },
 
   "background": {
@@ -21,14 +21,14 @@
       "lib/jquery.js",
       "lib/underscore.js",
       "lib/backbone.js",
-      "build/common.js",
-      "build/models.js",
-      "build/background.js",
-      "build/ga.js"
+      "common.js",
+      "models.js",
+      "background.js",
+      "ga.js"
     ]
   },
 
-  "options_page": "build/options.html",
+  "options_page": "options.html",
   "permissions": [
     "chrome.i18n.getMessage",
     "notifications",

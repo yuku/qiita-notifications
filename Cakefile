@@ -5,7 +5,7 @@ stylus        = require 'stylus'
 jade          = require 'jade'
 
 srcDir        = 'source'
-targetDir     = 'build'
+targetDir     = 'contents'
 
 srcCoffeeDir  = "#{srcDir}/coffee"
 srcStylusDir  = "#{srcDir}/stylus"
@@ -76,7 +76,7 @@ task 'build', 'Build source files', (options) ->
         log "compile #{file} -> #{targetDir}/#{filename}.css"
         content = fs.readFileSync file, 'utf8'
         stylus(content)
-          .render (err, css) -> 
+          .render (err, css) ->
             fs.writeFile "#{targetDir}/#{filename}.css"
                         , css
                         , 'utf8'
@@ -88,11 +88,11 @@ task 'build', 'Build source files', (options) ->
       throw err if err
       package = JSON.parse data
       delete package.dependencies
-      fs.writeFile "#{__dirname}/manifest.json", JSON.stringify(package), (err) -> 
+      fs.writeFile "#{targetDir}/manifest.json", JSON.stringify(package), (err) ->
         throw err if err
 
 task 'zip', ->
-  exec 'zip qiita-notifications.zip manifest.json lib/* images/* build/* _locales/*/*',
+  exec 'zip qiita-notifications.zip contents/**',
     (err, stdout, stderr) ->
       debug stderr if stderr
       log stdout if stdout
