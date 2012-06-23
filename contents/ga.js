@@ -8,7 +8,6 @@ _gaq.push(['_trackPageview']);
 })();
 $(function() {
   $('span.menu > span').click(function() {
-    console.log('hoge');
     _gaq.push(['_trackEvent', $(this).data('id'), 'clicked']);
   });
 });
