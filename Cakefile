@@ -40,10 +40,10 @@ task 'build', 'Build source files', (options) ->
     .filter (target) -> target in ['js', 'html', 'css', 'manifest']
 
   try
-    stats = fs.statSync targetDir 
+    stats = fs.statSync targetDir
   catch e
     log "mkdir #{targetDir}"
-    fs.mkdirSync targetDir 
+    fs.mkdirSync targetDir
 
   if 'js' in targets
     walk srcCoffeeDir, (err, results) ->
@@ -86,9 +86,9 @@ task 'build', 'Build source files', (options) ->
     log 'package.json -> manifest.json'
     fs.readFile "#{__dirname}/package.json", (err, data) ->
       throw err if err
-      package = JSON.parse data
-      delete package.dependencies
-      fs.writeFile "#{targetDir}/manifest.json", JSON.stringify(package), (err) ->
+      package_ = JSON.parse data
+      delete package_.dependencies
+      fs.writeFile "#{targetDir}/manifest.json", JSON.stringify(package_), (err) ->
         throw err if err
 
 task 'zip', ->
