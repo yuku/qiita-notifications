@@ -55,5 +55,35 @@
     },
     "login_required": {
         "message": "Lobin Required"
+    },
+    "following__msg__stock": {
+        "message": "<span class='bold'>$user$</span> stocked an item",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "following__msg__increment": {
+        "message": "<span class='bold'>$user$</span> ++ed an item",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "following__msg__following_tag_post": {
+        "message": "New post for <img src='$iconUrl$'/><span class='bold'>$tag$</span>",
+        "placeholders": {
+            "tag": {
+                "content": "$1",
+                "example": "Ruby"
+            },
+            "iconUrl": {
+                "content": "$2"
+            }
+        }
     }
 }

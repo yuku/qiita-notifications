@@ -9,6 +9,7 @@ q.logLevels =
   NONT    : 5
 
 q.LOG_LEVEL = q.logLevels.ERROR
+q.DOMAIN = 'https://qiita.com'
 
 q.logger =
   printLog: (n, a, o) ->

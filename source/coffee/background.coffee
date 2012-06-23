@@ -1,7 +1,7 @@
 q = @qiita
 q.LOG_LEVEL = q.logLevels.DEBUG
 
-DOMAIN = 'https://qiita.com'
+DOMAIN = q.DOMAIN
 
 # Backbone
 
@@ -170,7 +170,7 @@ chrome.extension.onRequest.addListener (req, sender, res) ->
           res(get)
 
 
-$ -> 
+$ ->
   update = ->
     q.logger.debug 'update'
     badge.fetch(

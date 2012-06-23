@@ -55,5 +55,35 @@
     },
     "login_required": {
         "message": "ログインして下さい。"
+    },
+    "following__msg__stock": {
+        "message": "<span class='bold'>$user$</span>がストックしました",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "following__msg__increment": {
+        "message": "<span class='bold'>$user$</span>が++しました",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "following__msg__following_tag_post": {
+        "message": "<img src='$iconUrl$'/><span class='bold'>$tag$</span>に新しい投稿がありました。",
+        "placeholders": {
+            "tag": {
+                "content": "$1",
+                "example": "Ruby"
+            },
+            "iconUrl": {
+                "content": "$2"
+            }
+        }
     }
 }

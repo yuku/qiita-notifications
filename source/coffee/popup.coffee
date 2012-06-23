@@ -39,7 +39,75 @@ NotificationsView = Backbone.View.extend
       $(@el).append view.render()
     chrome.extension.sendRequest(action: 'read', menu: 'notifications')
 
-ItemView = Backbone.View.extend
+FollowingView = Backbone.View.extend
+  render: ->
+    tags = ''
+    for tag in @model.target_content.tags
+      tags += "<img class='icon-s' src='https://qiita.com#{tag.iconUrl}'/>#{tag.name}"
+    cls = unless @model.seen then 'unread' else ''
+    q.logger.debug "following", @model
+    if @model.action_type is 'following_tag_post'
+      msg = chrome.i18n.getMessage(
+        "following__msg__#{@model.action_type}"
+        [@model.actor.name, "#{q.DOMAIN}/#{@model.actor.iconUrl}"]
+      )
+      content = @model.target_content
+      """
+      <li class='chunk #{cls}'>
+        <a href='#{content.url}' target='_blank'>
+          <div class='box'>
+            <div class='left'>
+              <div class='user-icon'>
+              </div>
+            </div>
+            <div class='right'>
+              <div class='content'>
+                <div class='msg'>#{msg}</div>
+                <div class='title'>#{content.title}</div>
+              </div>
+              <div class='status'>
+                <span class='#{content.action}'>#{content.created_at_in_words}</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </li>
+      """
+    else
+      if @model.action_type in ['increment', 'stock', 'post']
+        msg = chrome.i18n.getMessage(
+          "following__msg__#{@model.action_type}"
+          [@model.actor.name, "#{q.DOMAIN}/#{@model.actor.iconUrl}"]
+        )
+        content = @model.target_content
+        actor = @model.actor
+        """
+        <li class='chunk #{cls}'>
+          <a href='#{content.url}' target='_blank'>
+            <div class='box'>
+              <div class='left'>
+                <div class='user-icon'>
+                  <img class='icon-m' src='#{actor.profile_image_url}' alt='#{actor.display_name}'>
+                </div>
+              </div>
+              <div class='right'>
+                <div class='content'>
+                  <div class='msg'>#{msg}</div>
+                  <div class='title'>#{content.title}</div>
+                </div>
+                <div class='status'>
+                  <span class='#{content.action}'>#{content.created_at_in_words}</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+        """
+      else
+        ''
+
+
+AllPostView = Backbone.View.extend
   render: ->
     tags = ''
     for tag in @model.tags
@@ -60,7 +128,7 @@ ItemView = Backbone.View.extend
               <div class='title'>#{@model.title}</div>
             </div>
             <div class='status'>
-              <span class='#{@model.action}'>#{@model.created_at}</span>
+              <span class='#{@model.action}'>#{@model.created_at_in_words}</span>
             </div>
           </div>
         </div>
@@ -70,10 +138,10 @@ ItemView = Backbone.View.extend
 
 ItemsView = Backbone.View.extend
   initialize: (options) ->
-    q.logger.debug 'ItemsView#initialize'
+    q.logger.debug "ItemsView#initialize with #{options.menu}"
     $(@el).html('')
     for item in @collection
-      view = new ItemView model: item
+      view = new options.view_class model: item
       $(@el).append view.render()
     chrome.extension.sendRequest(action: 'read', menu: options.menu)
 
@@ -98,6 +166,7 @@ $ ->
                   el: $('#contents > .notifications > ol')
               else
                 new ItemsView
+                  view_class: if menu is 'following' then FollowingView else AllPostView
                   collection: collection
                   el: $("#contents > .#{menu} > ol")
                   menu: menu
