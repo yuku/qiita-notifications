@@ -120,7 +120,7 @@
         }
     },
     "following__msg__following_tag_post": {
-        "message": "New post for <img src='$iconUrl$'/><span class='bold'>$tag$</span>",
+        "message": "New post for <img class='icon-s' src='$iconUrl$'/><span class='bold'>$tag$</span>",
         "placeholders": {
             "tag": {
                 "content": "$1",

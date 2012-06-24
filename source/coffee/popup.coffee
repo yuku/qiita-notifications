@@ -40,9 +40,6 @@ NotificationsView = Backbone.View.extend
 
 FollowingView = Backbone.View.extend
   render: ->
-    tags = ''
-    for tag in @model.target_content.tags
-      tags += "<img class='icon-s' src='https://qiita.com#{tag.iconUrl}'/>#{tag.name}"
     cls = unless @model.seen then 'unread' else ''
     q.logger.debug "following", @model
     if @model.action_type is 'following_tag_post'
@@ -73,11 +70,14 @@ FollowingView = Backbone.View.extend
       </li>
       """
     else
-      if @model.action_type in ['increment', 'stock', 'post']
+      action_type = @model.action_type
+      if action_type is 'own_post'
+        action_type = 'post'
+      if action_type in ['increment', 'stock', 'post']
         content = @model.target_content
         actor = @model.actor
         msg = chrome.i18n.getMessage(
-          "following__msg__#{@model.action_type}"
+          "following__msg__#{action_type}"
           actor.display_name
         )
         """
@@ -110,7 +110,7 @@ AllPostView = Backbone.View.extend
   render: ->
     tags = ''
     for tag in @model.tags
-      tags += "<img class='icon-s' src='https://qiita.com#{tag.iconUrl}'/>#{tag.name}"
+      tags += "<img class='icon-s' src='#{qiita.DOMAIN}#{tag.iconUrl}'/>#{tag.name}"
     cls = unless @model.seen then 'unread' else ''
     """
     <li class='chunk #{cls}'>

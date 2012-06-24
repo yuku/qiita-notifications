@@ -46,13 +46,7 @@
 
   FollowingView = Backbone.View.extend({
     render: function() {
-      var actor, cls, content, msg, tag, tags, _i, _len, _ref, _ref1;
-      tags = '';
-      _ref = this.model.target_content.tags;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        tag = _ref[_i];
-        tags += "<img class='icon-s' src='https://qiita.com" + tag.iconUrl + "'/>" + tag.name;
-      }
+      var action_type, actor, cls, content, msg;
       cls = !this.model.seen ? 'unread' : '';
       q.logger.debug("following", this.model);
       if (this.model.action_type === 'following_tag_post') {
@@ -60,10 +54,14 @@
         content = this.model.target_content;
         return "<li class='chunk " + cls + "'>\n  <a href='" + content.url + "' target='_blank'>\n    <div class='box'>\n      <div class='left'>\n        <div class='user-icon'>\n        </div>\n      </div>\n      <div class='right'>\n        <div class='content'>\n          <div class='msg'>" + msg + "</div>\n          <div class='title'>" + content.title + "</div>\n        </div>\n        <div class='status'>\n          <span class='" + content.action + "'>" + content.created_at_in_words + "</span>\n        </div>\n      </div>\n    </div>\n  </a>\n</li>";
       } else {
-        if ((_ref1 = this.model.action_type) === 'increment' || _ref1 === 'stock' || _ref1 === 'post') {
+        action_type = this.model.action_type;
+        if (action_type === 'own_post') {
+          action_type = 'post';
+        }
+        if (action_type === 'increment' || action_type === 'stock' || action_type === 'post') {
           content = this.model.target_content;
           actor = this.model.actor;
-          msg = chrome.i18n.getMessage("following__msg__" + this.model.action_type, actor.display_name);
+          msg = chrome.i18n.getMessage("following__msg__" + action_type, actor.display_name);
           return "<li class='chunk " + cls + "'>\n  <a href='" + content.url + "' target='_blank'>\n    <div class='box'>\n      <div class='left'>\n        <div class='user-icon'>\n          <img class='icon-m' src='" + actor.profile_image_url + "' alt='" + actor.display_name + "'>\n        </div>\n      </div>\n      <div class='right'>\n        <div class='content'>\n          <div class='msg'>" + msg + "</div>\n          <div class='title'>" + content.title + "</div>\n        </div>\n        <div class='status'>\n          <span class='" + content.action + "'>" + content.created_at_in_words + "</span>\n        </div>\n      </div>\n    </div>\n  </a>\n</li>";
         } else {
           return '';
@@ -79,7 +77,7 @@
       _ref = this.model.tags;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         tag = _ref[_i];
-        tags += "<img class='icon-s' src='https://qiita.com" + tag.iconUrl + "'/>" + tag.name;
+        tags += "<img class='icon-s' src='" + qiita.DOMAIN + tag.iconUrl + "'/>" + tag.name;
       }
       cls = !this.model.seen ? 'unread' : '';
       return "<li class='chunk " + cls + "'>\n  <a href='" + this.model.url + "' target='_blank'>\n    <div class='box'>\n      <div class='left'>\n        <div class='user-icon'>\n          <img class='icon-m' src='" + this.model.user.profile_image_url + "' alt='" + this.model.user.display_name + "'>\n        </div>\n      </div>\n      <div class='right'>\n        <div class='content'>\n          <div class='tags'>" + tags + "</div>\n          <div class='title'>" + this.model.title + "</div>\n        </div>\n        <div class='status'>\n          <span class='" + this.model.action + "'>" + this.model.created_at_in_words + "</span>\n        </div>\n      </div>\n    </div>\n  </a>\n</li>";

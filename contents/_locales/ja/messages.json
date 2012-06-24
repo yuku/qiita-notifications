@@ -120,7 +120,7 @@
         }
     },
     "following__msg__following_tag_post": {
-        "message": "<img src='$iconUrl$'/><span class='bold'>$tag$</span>に新しい投稿がありました。",
+        "message": "<img class='icon-s' src='$iconUrl$'/><span class='bold'>$tag$</span>に新しい投稿がありました。",
         "placeholders": {
             "tag": {
                 "content": "$1",

@@ -175,6 +175,9 @@
         title = chrome.i18n.getMessage("desktop_notification__" + action_type, actor.name);
         content = model.get('target_content').title;
       } else {
+        if (action_type === 'own_post') {
+          action_type = 'post';
+        }
         url = actor.profile_image_url;
         title = chrome.i18n.getMessage("desktop_notification__" + action_type, actor.display_name);
         content = model.get('target_content').title;
