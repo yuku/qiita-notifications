@@ -56,6 +56,42 @@
     "login_required": {
         "message": "Lobin Required"
     },
+    "desktop_notification__stock": {
+        "message": "$user$ stocked an item",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "desktop_notification__increment": {
+        "message": "$user$ ++ed an item",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "desktop_notification__post": {
+        "message": "$user$ posted an item",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "desktop_notification__following_tag_post": {
+        "message": "New post for $tag$",
+        "placeholders": {
+            "tag": {
+                "content": "$1",
+                "example": "Ruby"
+            }
+        }
+    },
     "following__msg__stock": {
         "message": "<span class='bold'>$user$</span> stocked an item",
         "placeholders": {
@@ -67,6 +103,15 @@
     },
     "following__msg__increment": {
         "message": "<span class='bold'>$user$</span> ++ed an item",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "following__msg__post": {
+        "message": "<span class='bold'>$user$</span> posted an item",
         "placeholders": {
             "user": {
                 "content": "$1",

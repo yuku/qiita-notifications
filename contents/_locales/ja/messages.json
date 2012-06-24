@@ -56,6 +56,42 @@
     "login_required": {
         "message": "ログインして下さい。"
     },
+    "desktop_notification__stock": {
+        "message": "$user$ がストックしました",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "desktop_notification__increment": {
+        "message": "$user$ が++しました",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "desktop_notification__post": {
+        "message": "$user$ が投稿しました",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "desktop_notification__following_tag_post": {
+        "message": "$tag$ に新しい投稿がありました。",
+        "placeholders": {
+            "tag": {
+                "content": "$1",
+                "example": "Ruby"
+            }
+        }
+    },
     "following__msg__stock": {
         "message": "<span class='bold'>$user$</span>がストックしました",
         "placeholders": {
@@ -67,6 +103,15 @@
     },
     "following__msg__increment": {
         "message": "<span class='bold'>$user$</span>が++しました",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
+    "following__msg__post": {
+        "message": "<span class='bold'>$user$</span>が投稿しました",
         "placeholders": {
             "user": {
                 "content": "$1",

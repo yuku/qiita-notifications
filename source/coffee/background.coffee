@@ -88,12 +88,8 @@ Items = Backbone.Collection.extend
     q.logger.debug "#{@cls}#notify"
     if settingManager.get "notify#{@cls}"
       time = settingManager.get 'notifyTime'
-      @models[0...count].forEach (model, i) ->
-        notification = window.webkitNotifications.createNotification(
-          model.get('user').profile_image_url
-          model.get('title')
-          model.get('tags').map((tag) -> "##{tag.name}").join(' ')
-        )
+      @models[0...count].forEach (model, i) =>
+        notification = @createNotification(model)
         notification.show()
         if time > 0
           setTimeout(
@@ -110,11 +106,30 @@ q.f = following = new Items
 _.extend following,
   url: "#{DOMAIN}/following"
   cls: 'Following'
+  createNotification: (model) ->
+    action_type = model.get('action_type')
+    actor = model.get('actor')
+    if action_type is 'following_tag_post'
+      url = "#{DOMAIN}/#{actor.iconUrl}"
+      title = chrome.i18n.getMessage("desktop_notification__#{action_type}", actor.name)
+      content = model.get('target_content').title
+    else
+      url = actor.profile_image_url
+      title = chrome.i18n.getMessage("desktop_notification__#{action_type}", actor.display_name)
+      content = model.get('target_content').title
+
+    window.webkitNotifications.createNotification(url, title, content)
 
 q.a = all_posts = new Items
 _.extend all_posts,
   url: "#{DOMAIN}/public"
   cls: 'AllPosts'
+  createNotification: (model) ->
+    window.webkitNotifications.createNotification(
+      model.get('user').profile_image_url
+      model.get('title')
+      model.get('tags').map((tag) -> "##{tag.name}").join(' ')
+    )
 
 settingManager =
   defaults:

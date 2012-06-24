@@ -134,15 +134,14 @@
     read_max_id: Infinity,
     count: 0,
     notify: function(count) {
-      var time;
+      var time,
+        _this = this;
       q.logger.debug("" + this.cls + "#notify");
       if (settingManager.get("notify" + this.cls)) {
         time = settingManager.get('notifyTime');
         return this.models.slice(0, count).forEach(function(model, i) {
           var notification;
-          notification = window.webkitNotifications.createNotification(model.get('user').profile_image_url, model.get('title'), model.get('tags').map(function(tag) {
-            return "#" + tag.name;
-          }).join(' '));
+          notification = _this.createNotification(model);
           notification.show();
           if (time > 0) {
             return setTimeout(function() {
@@ -168,14 +167,34 @@
 
   _.extend(following, {
     url: "" + DOMAIN + "/following",
-    cls: 'Following'
+    cls: 'Following',
+    createNotification: function(model) {
+      var action_type, actor, content, title, url;
+      action_type = model.get('action_type');
+      actor = model.get('actor');
+      if (action_type === 'following_tag_post') {
+        url = "" + DOMAIN + "/" + actor.iconUrl;
+        title = chrome.i18n.getMessage("desktop_notification__" + action_type, actor.name);
+        content = model.get('target_content').title;
+      } else {
+        url = actor.profile_image_url;
+        title = chrome.i18n.getMessage("desktop_notification__" + action_type, actor.display_name);
+        content = model.get('target_content').title;
+      }
+      return window.webkitNotifications.createNotification(url, title, content);
+    }
   });
 
   q.a = all_posts = new Items;
 
   _.extend(all_posts, {
     url: "" + DOMAIN + "/public",
-    cls: 'AllPosts'
+    cls: 'AllPosts',
+    createNotification: function(model) {
+      return window.webkitNotifications.createNotification(model.get('user').profile_image_url, model.get('title'), model.get('tags').map(function(tag) {
+        return "#" + tag.name;
+      }).join(' '));
+    }
   });
 
   settingManager = {
