@@ -63,9 +63,9 @@
         return "<li class='chunk " + cls + "'>\n  <a href='" + content.url + "' target='_blank'>\n    <div class='box'>\n      <div class='left'>\n        <div class='user-icon'>\n        </div>\n      </div>\n      <div class='right'>\n        <div class='content'>\n          <div class='msg'>" + msg + "</div>\n          <div class='title'>" + content.title + "</div>\n        </div>\n        <div class='status'>\n          <span class='" + content.action + "'>" + content.created_at_in_words + "</span>\n        </div>\n      </div>\n    </div>\n  </a>\n</li>";
       } else {
         if ((_ref1 = this.model.action_type) === 'increment' || _ref1 === 'stock' || _ref1 === 'post') {
-          msg = chrome.i18n.getMessage("following__msg__" + this.model.action_type, [this.model.actor.name, "" + q.DOMAIN + "/" + this.model.actor.iconUrl]);
           content = this.model.target_content;
           actor = this.model.actor;
+          msg = chrome.i18n.getMessage("following__msg__" + this.model.action_type, actor.display_name);
           return "<li class='chunk " + cls + "'>\n  <a href='" + content.url + "' target='_blank'>\n    <div class='box'>\n      <div class='left'>\n        <div class='user-icon'>\n          <img class='icon-m' src='" + actor.profile_image_url + "' alt='" + actor.display_name + "'>\n        </div>\n      </div>\n      <div class='right'>\n        <div class='content'>\n          <div class='msg'>" + msg + "</div>\n          <div class='title'>" + content.title + "</div>\n        </div>\n        <div class='status'>\n          <span class='" + content.action + "'>" + content.created_at_in_words + "</span>\n        </div>\n      </div>\n    </div>\n  </a>\n</li>";
         } else {
           return '';

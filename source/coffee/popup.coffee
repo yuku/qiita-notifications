@@ -75,12 +75,12 @@ FollowingView = Backbone.View.extend
       """
     else
       if @model.action_type in ['increment', 'stock', 'post']
-        msg = chrome.i18n.getMessage(
-          "following__msg__#{@model.action_type}"
-          [@model.actor.name, "#{q.DOMAIN}/#{@model.actor.iconUrl}"]
-        )
         content = @model.target_content
         actor = @model.actor
+        msg = chrome.i18n.getMessage(
+          "following__msg__#{@model.action_type}"
+          actor.display_name
+        )
         """
         <li class='chunk #{cls}'>
           <a href='#{content.url}' target='_blank'>
