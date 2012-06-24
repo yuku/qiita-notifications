@@ -4,8 +4,6 @@
 
   q = this.qiita;
 
-  q.LOG_LEVEL = q.logLevels.DEBUG;
-
   InfoView = Backbone.View.extend({
     render: function() {
       var alt, cls, content, src, user;

@@ -1,5 +1,4 @@
 q = @qiita
-q.LOG_LEVEL = q.logLevels.DEBUG
 
 DOMAIN = q.DOMAIN
 

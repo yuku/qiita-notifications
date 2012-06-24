@@ -4,8 +4,6 @@
 
   q = this.qiita;
 
-  q.LOG_LEVEL = q.logLevels.DEBUG;
-
   DOMAIN = q.DOMAIN;
 
   q.b = badge = new Backbone.Model;
