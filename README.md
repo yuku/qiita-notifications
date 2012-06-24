@@ -25,6 +25,10 @@ $ cake build
 
 #History
 
+##1.1.0
+
+- Support new style feed interface.
+
 ##1.0.0
 
 - Notify new posts via webNotifications.

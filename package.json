@@ -1,6 +1,6 @@
 {
   "name": "qiita-notifications",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "manifest_version": 2,
 
   "description": "Keep up with Qiita anywhere on the web.",
