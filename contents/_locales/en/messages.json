@@ -130,5 +130,18 @@
                 "content": "$2"
             }
         }
+    },
+    "following__msg__follow_user": {
+        "message": "<span class='bold'>$a$</span> followed <span class='bold'>$b$</span>.",
+        "placeholders": {
+            "a": {
+                "content": "$1",
+                "example": "yaotti"
+            },
+            "b": {
+                "content": "$2",
+                "example": "yaotti"
+            }
+        }
     }
 }

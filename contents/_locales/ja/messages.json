@@ -130,5 +130,18 @@
                 "content": "$2"
             }
         }
+    },
+    "following__msg__follow_user": {
+        "message": "<span class='bold'>$a$</span>が<span class='bold'>$b$</span>を<span class='bold'>フォローしました。</span>",
+        "placeholders": {
+            "a": {
+                "content": "$1",
+                "example": "yaotti"
+            },
+            "b": {
+                "content": "$2",
+                "example": "yaotti"
+            }
+        }
     }
 }

@@ -73,9 +73,9 @@ FollowingView = Backbone.View.extend
       action_type = @model.action_type
       if action_type is 'own_post'
         action_type = 'post'
+      actor = @model.actor
+      content = @model.target_content
       if action_type in ['increment', 'stock', 'post']
-        content = @model.target_content
-        actor = @model.actor
         msg = chrome.i18n.getMessage(
           "following__msg__#{action_type}"
           actor.display_name
@@ -96,6 +96,24 @@ FollowingView = Backbone.View.extend
                 </div>
                 <div class='status'>
                   <span class='#{content.action}'>#{content.created_at_in_words}</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+        """
+      else if action_type in ['follow_user']
+        msg = chrome.i18n.getMessage(
+          "following__msg__#{action_type}"
+          [actor.url_name, content.url_name]
+        )
+        """
+        <li class='chunk #{cls}'>
+          <a href='#'>
+            <div class='box'>
+              <div class='right'>
+                <div class='content'>
+                  <div class='msg'>#{msg}</div>
                 </div>
               </div>
             </div>

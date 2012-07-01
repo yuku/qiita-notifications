@@ -30,7 +30,6 @@
 
   "options_page": "options.html",
   "permissions": [
-    "chrome.i18n.getMessage",
     "notifications",
     "https://qiita.com/",
     "http://qiita.com/"
