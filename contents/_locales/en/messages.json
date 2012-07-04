@@ -131,6 +131,15 @@
             }
         }
     },
+    "following__msg__comment": {
+        "message": "<span class='bold'>$user$</span> posted a comment.",
+        "placeholders": {
+            "user": {
+                "content": "$1",
+                "example": "yaotti"
+            }
+        }
+    },
     "following__msg__follow_user": {
         "message": "<span class='bold'>$a$</span> followed <span class='bold'>$b$</span>.",
         "placeholders": {

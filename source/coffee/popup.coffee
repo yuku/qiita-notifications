@@ -75,7 +75,7 @@ FollowingView = Backbone.View.extend
         action_type = 'post'
       actor = @model.actor
       content = @model.target_content
-      if action_type in ['increment', 'stock', 'post']
+      if action_type in ['increment', 'stock', 'post', 'comment']
         msg = chrome.i18n.getMessage(
           "following__msg__#{action_type}"
           actor.display_name
