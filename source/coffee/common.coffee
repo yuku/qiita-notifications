@@ -8,7 +8,7 @@ q.logLevels =
   FATAL   : 4
   NONT    : 5
 
-q.LOG_LEVEL = q.logLevels.ERROR
+q.LOG_LEVEL = q.logLevels.DEBUG
 q.DOMAIN = 'https://qiita.com'
 
 q.logger =

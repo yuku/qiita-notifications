@@ -134,10 +134,12 @@ _.extend all_posts,
 
 settingManager =
   defaults:
-    'notifyNotifications'     : true
-    'notifyFollowing'         : true
-    'notifyAllPosts'          : false
-    'notifyTime'      : 2
+    'notifyNotifications' : true
+    'notifyFollowing'     : true
+    'notifyAllPosts'      : false
+    'notifyTime'          : 2
+    'token'               : null
+    'url_name'            : null
 
   getAll: ->
     res = {}
@@ -152,6 +154,7 @@ settingManager =
       @defaults[name]
 
   set: (name, value) ->
+    q.logger.debug "set:#{name}", JSON.stringify value
     localStorage.setItem name, JSON.stringify value
 
 getCollection = (menu) ->

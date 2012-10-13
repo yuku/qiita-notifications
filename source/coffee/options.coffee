@@ -8,7 +8,6 @@ _.templateSettings =
   escape: /\{%-(.+?)%\}/g
 
 setSetting = (name, val, response) ->
-  q.logger.debug "set:#{name}", val
   chrome.extension.sendRequest(
     action : 'settings'
     type   : 'set'
@@ -48,6 +47,14 @@ $ ->
     type   : 'get'
     name   : 'all'
   }, (msg) ->
+    token = null
+    for name, value of msg
+      if name == 'token'
+        token = value
+        break
+    location.href = 'login.html' if token is null
+
+
     for name, value of msg
       switch typeof value
         when 'string'  then initInputText   name, value
