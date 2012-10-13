@@ -4,9 +4,9 @@ InfoView = Backbone.View.extend
   render: ->
     content = chrome.i18n.getMessage(
       @model.action
-      (user.display_name for user in @model.users).join(', ')
+      (user.name for user in @model.users).join(', ')
     )
-    alt = @model.users[0].display_name
+    alt = @model.users[0].name
     src = @model.users[0].profile_image_url
     cls = unless @model.seen then 'unread' else ''
     """
@@ -35,7 +35,7 @@ NotificationsView = Backbone.View.extend
     $(@el).html('')
     for info in @collection
       view = new InfoView model: info
-      $(@el).append view.render()
+      $(@el).append(view.render())
     chrome.extension.sendRequest(action: 'read', menu: 'notifications')
 
 FollowingView = Backbone.View.extend

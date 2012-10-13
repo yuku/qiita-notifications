@@ -12,11 +12,11 @@
         _results = [];
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           user = _ref[_i];
-          _results.push(user.display_name);
+          _results.push(user.name);
         }
         return _results;
       }).call(this)).join(', '));
-      alt = this.model.users[0].display_name;
+      alt = this.model.users[0].name;
       src = this.model.users[0].profile_image_url;
       cls = !this.model.seen ? 'unread' : '';
       return "<li class='notification " + cls + "'>\n  <a href='" + this.model.object + "' target='_blank'>\n    <div class='box'>\n      <div class='left'>\n        <div class='user-icon'>\n          <img class='icon-m' src='" + src + "' alt='" + alt + "'>\n        </div>\n      </div>\n      <div class='right'>\n        <div class='content'>" + content + "</div>\n        <div class='status'>\n          <span class='" + this.model.action + "'>" + this.model.created_at + "</span>\n        </div>\n      </div>\n    </div>\n  </a>\n</li>";
