@@ -182,7 +182,7 @@
   q.a = all_posts = new Items;
 
   _.extend(all_posts, {
-    url: "" + DOMAIN + "/public",
+    url: "" + DOMAIN + "/api/v1/items",
     cls: 'AllPosts',
     createNotification: function(model) {
       return window.webkitNotifications.createNotification(model.get('user').profile_image_url, model.get('title'), model.get('tags').map(function(tag) {

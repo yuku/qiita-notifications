@@ -123,7 +123,7 @@ _.extend following,
 
 q.a = all_posts = new Items
 _.extend all_posts,
-  url: "#{DOMAIN}/public"
+  url: "#{DOMAIN}/api/v1/items"
   cls: 'AllPosts'
   createNotification: (model) ->
     window.webkitNotifications.createNotification(
