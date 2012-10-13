@@ -106,7 +106,7 @@
 
   $(function() {
     var menu, _fn, _i, _len, _ref;
-    _ref = ['notifications', 'following', 'all_posts'];
+    _ref = ['notifications', 'all_posts'];
     _fn = function(menu) {
       $(".menu > ." + menu).html(chrome.i18n.getMessage(menu)).click(function() {
         $('.menu > .active').removeClass('active');

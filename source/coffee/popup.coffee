@@ -163,7 +163,7 @@ ItemsView = Backbone.View.extend
     chrome.extension.sendRequest(action: 'read', menu: options.menu)
 
 $ ->
-  for menu in ['notifications', 'following', 'all_posts']
+  for menu in ['notifications', 'all_posts']
     do (menu) ->
       $(".menu > .#{menu}")
         # i18n of menu
