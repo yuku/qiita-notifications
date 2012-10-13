@@ -36,11 +36,15 @@
         }
     },
     "stock": {
-        "message": "<span class='bold'>$names$</span><span>があなたのアイテムを</span><span class='bold'>ストック</span><span>しました。</span>",
+        "message": "<span class='bold'>$names$</span><span>があなたの投稿</span><span class='bold'>$short_title$</span><span>を</span><span class='bold'>ストック</span><span>しました。</span>",
         "placeholders": {
             "names": {
                 "content": "$1",
                 "example": "yaotti"
+            },
+            "short_title": {
+                "content": "$2",
+                "example": "Is this a pen?"
             }
         }
     },

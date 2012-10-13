@@ -6,16 +6,18 @@
   InfoView = Backbone.View.extend({
     render: function() {
       var alt, cls, content, src, user;
-      content = chrome.i18n.getMessage(this.model.action, ((function() {
-        var _i, _len, _ref, _results;
-        _ref = this.model.users;
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          user = _ref[_i];
-          _results.push(user.name);
-        }
-        return _results;
-      }).call(this)).join(', '));
+      content = chrome.i18n.getMessage(this.model.action, [
+        ((function() {
+          var _i, _len, _ref, _results;
+          _ref = this.model.users;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            user = _ref[_i];
+            _results.push(user.name);
+          }
+          return _results;
+        }).call(this)).join(', '), this.model.short_title
+      ]);
       alt = this.model.users[0].name;
       src = this.model.users[0].profile_image_url;
       cls = !this.model.seen ? 'unread' : '';

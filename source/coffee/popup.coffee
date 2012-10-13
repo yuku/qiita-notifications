@@ -4,7 +4,10 @@ InfoView = Backbone.View.extend
   render: ->
     content = chrome.i18n.getMessage(
       @model.action
-      (user.name for user in @model.users).join(', ')
+      [
+        (user.name for user in @model.users).join(', ')
+        @model.short_title
+      ]
     )
     alt = @model.users[0].name
     src = @model.users[0].profile_image_url

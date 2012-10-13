@@ -36,11 +36,15 @@
         }
     },
     "stock": {
-        "message": "<span class='bold'>$names$ stocked</span><span>your item.</span>",
+        "message": "<span class='bold'>$names$ stocked</span><span>your item</span><span class='bold'>$short_title$</span>",
         "placeholders": {
             "names": {
                 "content": "$1",
                 "example": "yaotti"
+            },
+            "short_title": {
+                "content": "$2",
+                "example": "Is this a pen?"
             }
         }
     },
