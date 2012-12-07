@@ -19,20 +19,6 @@
   // Data which fetched from server but not have been showed on popup.html yet.
   var pool = { following: [], 'public': [], notifications: [] };
 
-  chrome.extension.onRequest.addListener(function (req, sender, res) {
-    switch (req.action) {
-    case 'get.notifications':
-      res(pool.notifications);
-      break;
-    case 'get.public':
-      res(pool['public']);
-      break;
-    case 'get.following':
-      res(pool.following);
-      break;
-    }
-  });
-
 
   // Polling once a two minutes
   var origin = 'http://qiita.com';
@@ -191,6 +177,21 @@
   // start polling
   poll(true);
   setInterval(poll, 2 * 60 * 1000);
+
+  chrome.extension.onRequest.addListener(function (req, sender, res) {
+    switch (req.action) {
+    case 'get.notifications':
+      $.get(origin + '/api/notifications/read');
+      res(pool.notifications);
+      break;
+    case 'get.public':
+      res(pool['public']);
+      break;
+    case 'get.following':
+      res(pool.following);
+      break;
+    }
+  });
 
   // Utility functions
   // -----------------
