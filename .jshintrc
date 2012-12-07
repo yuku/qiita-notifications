@@ -1,0 +1,14 @@
+{
+  "strict": true,
+  "indent": 2,
+  "unused": true,
+
+  "undef": true,
+  "browser": true,
+  "jquery": true,
+  "devel": true,
+  "debug": true,
+
+  "eqnull": true,
+  "expr": true
+}

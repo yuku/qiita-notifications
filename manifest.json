@@ -17,7 +17,7 @@
 
   "background": {
     "scripts": [
-      "js/lib/underscore.js",
+      "js/lib/jquery.js",
       "js/lib/cro3.background.js",
       "js/background.js"
     ]

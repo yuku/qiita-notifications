@@ -43,7 +43,7 @@
     settings || (settings = {});
     for (key in settings) {
       value = settings[key];
-      if (typeof value === 'object' && value['default']) {
+      if (typeof value === 'object' && value != null && value['default']) {
         background.defaults[key] = value['default'];
         if (typeof value.validate === 'function') {
           background.validates[key] = value.validate;

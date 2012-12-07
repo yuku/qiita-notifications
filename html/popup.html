@@ -3,7 +3,45 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Qiita Notifications</title>
+    <link type="text/css" rel="stylesheet" href="/css/popup.css"/>
   </head>
   <body>
+    <input style="position: fixed; left: -1000px;"/>
+    <div id="header">
+      <span class="link">
+        <a id="qiita" href="http://qiita.com" target="_blank">Qiita</a>
+      </span>
+      <span class="menu">
+        <span data-id="notifications">お知らせ</span>
+        <span data-id="following">フィード</span>
+        <span data-id="public">すべての投稿</span>
+      </span>
+    </div>
+    <div id="contents">
+      <div class="notifications">
+        <ol class="notifications-list">
+          <li class="loader">
+            <img src="/img/ajax-loader.gif">
+          </li>
+        </ol>
+      </div>
+      <div class="following">
+        <ol class="following-list">
+          <li class="loader">
+            <img src="/img/ajax-loader.gif">
+          </li>
+        </ol>
+      </div>
+      <div class="public">
+        <ol class="public-list">
+          <li class="loader">
+            <img src="/img/ajax-loader.gif">
+          </li>
+        </ol>
+      </div>
+    </div>
+    <script src="/js/lib/jquery.js"></script>
+    <script src="/js/lib/cro3.frontend.js"></script>
+    <script src="/js/popup.js"></script>
   </body>
 </html>
