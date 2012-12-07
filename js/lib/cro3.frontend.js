@@ -126,80 +126,81 @@
   // shared setting object
   var setting = new CrO3.Setting();
 
-  if ($ != null) {
+  // jQuery.fn.setting
+  // -----------------
+  // When called on input tag, loads the setting value of name attribute from
+  // background and sets it as value attribute.
+  //
+  // Options:
+  //
+  // auto_save - Whether calls .save() on every change event. Defaults true.
+  //   success - Callback function
+  //     error - Callback function
+  //
+  // Returns the jQuery object
+  $.fn.setting = function (options) {
 
-    // jQuery.fn.setting
-    // -----------------
-    // When called on input tag, loads the setting value of name attribute from
-    // background and sets it as value attribute.
-    //
-    // Options:
-    //
-    // auto_save - Whether calls .save() on every change event. Defaults true.
-    //   success - Callback function
-    //     error - Callback function
-    //
-    // Returns the jQuery object
-    $.fn.setting = function (options) {
-
-      var defaults = {
-        auto_save: true
-      };
-      options = $.extend(true, {}, defaults, options);
-
-      var success_callback = options.success,
-          error_callback   = options.error;
-
-      this.each(function () {
-
-        var $this = $(this), self = this;
-
-        if (!$this.attr('name')) return;
-
-        // set initial value
-        setting
-          .get($this.attr('name'))
-          .done(function (value) {
-            $this.val(value);
-          });
-
-        if (options.auto_save) {
-          // save per change event
-          $this.change(function () {
-            var promise = $this.save();
-            if ($.isFunction(success_callback)) {
-              promise.done(function (msg) {
-                success_callback.call(self, msg);
-              });
-            }
-            if ($.isFunction(error_callback)) {
-              promise.fail(function (msg) {
-                error_callback.call(self, msg);
-              });
-            }
-          });
-        }
-
-      });
-
-      return this;
+    var defaults = {
+      auto_save: true
     };
+    options = $.extend(true, {}, defaults, options);
 
-    // Save current value
-    $.fn.save = function () {
+    var success_callback = options.success,
+        error_callback   = options.error;
 
-      var $this = $(this),
-          dfd   = $.Deferred();
+    this.each(function () {
 
-      if (!$this.attr('name')) return dfd.promise();
+      var $this = $(this), self = this;
 
+      if (!$this.attr('name')) return;
+
+      // set initial value
       setting
-        .set($this.attr('name'), $this.val())
-        .done(function (msg) { dfd.resolve(msg); })
-        .fail(function (msg) { dfd.reject(msg); });
+        .get($this.attr('name'))
+        .done(function (value) {
+          if (self.type === 'checkbox') {
+            self.checked = value;
+          } else {
+            $this.val(value);
+          }
+        });
 
-      return dfd.promise();
-    };
-  }
+      if (options.auto_save) {
+        // save per change event
+        $this.change(function () {
+          var promise = $this.save();
+          if ($.isFunction(success_callback)) {
+            promise.done(function (msg) {
+              success_callback.call(self, msg);
+            });
+          }
+          if ($.isFunction(error_callback)) {
+            promise.fail(function (msg) {
+              error_callback.call(self, msg);
+            });
+          }
+        });
+      }
+
+    });
+
+    return this;
+  };
+
+  // Save current value
+  $.fn.save = function () {
+
+    var dfd   = $.Deferred();
+
+    if (!this.attr('name')) return dfd.promise();
+
+    var val = this.attr('type') === 'checkbox' ? this[0].checked : this.val();
+    setting
+      .set(this.attr('name'), val)
+      .done(function (msg) { dfd.resolve(msg); })
+      .fail(function (msg) { dfd.reject(msg); });
+
+    return dfd.promise();
+  };
 
 })(jQuery);

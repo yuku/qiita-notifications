@@ -3,10 +3,74 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Qiita Notifications</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="/css/options.css"/>
+  </head>
+  <body>
+    <div id="sidebar">
+      <h1>Qiita Notifications</h1>
+      <div id="tab-container">
+        <div class="tab" data-id="setting">Setting</div>
+        <div class="tab" data-id="about">About</div>
+      </div>
+    </div>
+    <div id="content">
+      <div class="setting">
+        <div class="page-header">
+          <h2>デスクトップ通知</h2>
+        </div>
+        <form class="form-horizontal">
+          <div class="control-group">
+            <label class="control-label">通知</label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" name="notify_notifications">
+                お知らせ
+              </label>
+            </div>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" name="notify_following">
+                フィード
+              </label>
+            </div>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" name="notify_public">
+                全ての投稿
+              </label>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">通知時間</label>
+            <div class="controls">
+              <input type="number" min="0" name="notify_time">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="about">
+        <div class="page-header">
+          <h2>Author</h2>
+        </div>
+        <div>
+          Yuku Takahashi
+          <br>
+          <a href="http://yuku-tech.hatenablog.com/">Blog</a>
+          <a href="https://twitter.com/taka84u9">Twitter</a>
+          <a href="https://github.com/taka84u9">GitHub</a>
+          <a href="http://qiita.com/users/taka84u9">Qiita</a>
+        </div>
+        <div class="page-header">
+          <h2>Repository</h2>
+        </div>
+        <div>
+          <a href="https://github.com/taka84u9/qiita-notifications">Fork me on GitHub</a>
+        </div>
+      </div>
+    </div>
     <script src="/js/lib/jquery.js"></script>
     <script src="/js/lib/cro3.frontend.js"></script>
     <script src="/js/options.js"></script>
-  </head>
-  <body>
   </body>
 </html>
