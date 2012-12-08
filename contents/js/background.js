@@ -134,13 +134,13 @@
           updateBadge(data.count);
         }
 
-        var diff = data.count - prev_count;
+        var diff = isNaN(prev_count) ? data.count : data.count - prev_count;
         prev_count = data.count;
         if (init || diff > 0) {
           $.getJSON(origin + '/api/notifications', function (data) {
             pool.notifications = data;
 
-            if (init || background.get('notify_notifications').msg) {
+            if (background.get('notify_notifications').msg) {
               var time = background.get('notify_time').msg;
               data.slice(0, diff).forEach(function (datum, index) {
                 var users = datum.users.map(function (user) {
@@ -176,7 +176,8 @@
       });
 
     last = Math.floor(Date.now() / 1000);
-    setTimeout(poll, background.get('polling_interval').msg * 60 * 1000);
+    setTimeout(poll, 10 * 1000);
+    //setTimeout(poll, background.get('polling_interval').msg * 60 * 1000);
   };
 
 
