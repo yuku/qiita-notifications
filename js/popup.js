@@ -1,11 +1,13 @@
 /*global chrome: false */
 
 
-var renderItem = function (href, src, title, body) {
+var renderItem = function (href, src, title, body, className) {
 
   'use strict';
 
-  return '<li>' +
+  className || (className = '');
+
+  return '<li class="' + className + '">' +
       '<a href="' + href + '" target="_blank">' +
         '<div class="left">' +
           '<div class="icon">' +
@@ -33,7 +35,8 @@ var renderNotifications = function (data) {
     var users = datum.users.map(function (user) {
       return user.url_name;
     }).join(', ');
-    var href, src, title, body;
+    var href, src, title, body, className;
+    className = datum.seen ? '' : 'unread';
     src = datum.users[0].profile_image_url;
     switch (datum.action) {
     case 'stock':
@@ -48,7 +51,7 @@ var renderNotifications = function (data) {
     default:
       return; // ignore other actions
     }
-    container.append(renderItem(href, src, title, body));
+    container.append(renderItem(href, src, title, body, className));
   });
 };
 
@@ -69,7 +72,7 @@ var renderFollowing = function (data) {
     case 'stock':
       src = actors[0].profile_image_url;
       title = '<strong>' + actors.map(function (actor) {
-        return actor.url_name; 
+        return actor.url_name;
       }).join(', ') + '</strong>がストックしました';
       body = target.title;
       break;

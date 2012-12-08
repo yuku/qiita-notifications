@@ -6,10 +6,11 @@ img{border:none;vertical-align:bottom;}
 #contents .notifications,#contents .following,#contents .public{display:none;}
 #contents .active{display:block;}
 #contents ol{padding:0px;margin:0px;list-style:none;}#contents ol li{width:100%;float:left;border-top:solid 1px #ddd;font-weight:300;}#contents ol li.loader{text-align:center;}
+#contents ol li:first-child{border-top:none;}
+#contents ol li:hover{background-color:#bcf48b;}
+#contents ol li.unread{background-color:rgba(149, 236, 73, 0.5);}
 #contents ol li a:link,#contents ol li a:active,#contents ol li a:visited{color:#4a4a4a;text-decoration:none;}
 #contents ol li .left{float:left;width:45px;}#contents ol li .left .icon{margin:10px 5px 10px 10px;}#contents ol li .left .icon img{width:30px;height:30px;}
 #contents ol li .right{float:right;width:345px;padding:5px;}#contents ol li .right strong{color:#117ec6;}
 #contents ol li .right .title{font-size:11px;margin-top:3px;}
 #contents ol li .right .body{font-size:14px;height:16px;padding-top:2px;overflow:hidden;}
-#contents ol li:first-child{border-top:none;}
-#contents ol li:hover{background-color:#bcf48b;}
