@@ -3,6 +3,7 @@
   'use strict';
 
   $('input').setting({ auto_save: true });
+  $('select').setting({ auto_save: true });
 
   $('.tab').click(function () {
     var $this = $(this);

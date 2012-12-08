@@ -9,7 +9,8 @@
     notify_notifications : true,
     notify_following     : true,
     notify_public        : false,
-    notify_time          : 2,
+    notify_time          : 5,
+    polling_interval     : 180,
     token                : null,
     url_name             : null,
     following_tags       : [],
@@ -41,7 +42,7 @@
           case 'stock':
             iconUrl = actors[0].profile_image_url;
             title = actors.map(function (actor) {
-              return actor.url_name; 
+              return actor.url_name;
             }).join(', ') + 'がストックしました';
             body = target.title;
             break;
@@ -131,11 +132,12 @@
         }
 
         var diff = data.count - prev_count;
+        prev_count = data.count;
         if (init || diff > 0) {
           $.getJSON(origin + '/api/notifications', function (data) {
             pool.notifications = data;
 
-            if (!init && background.get('notify_notifications').msg) {
+            if (init || background.get('notify_notifications').msg) {
               var time = background.get('notify_time').msg;
               data.slice(0, diff).forEach(function (datum, index) {
                 var users = datum.users.map(function (user) {
@@ -176,7 +178,7 @@
 
   // start polling
   poll(true);
-  setInterval(poll, 2 * 60 * 1000);
+  setInterval(poll, background.get('polling_interval').msg * 60 * 1000);
 
   chrome.extension.onRequest.addListener(function (req, sender, res) {
     switch (req.action) {

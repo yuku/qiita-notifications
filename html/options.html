@@ -44,7 +44,29 @@
           <div class="control-group">
             <label class="control-label">通知時間</label>
             <div class="controls">
-              <input type="number" min="0" name="notify_time">
+              <select name="noify_time">
+                <option value="3">3 秒</option>
+                <option value="5">5 秒</option>
+                <option value="10">10 秒</option>
+                <option value="15">15 秒</option>
+                <option value="60">1 分</option>
+                <option value="900">15 分</option>
+                <option value="0">消さない</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="interval" class="control-label">確認間隔</label>
+            <div class="controls">
+              <select name="polling_interval">
+                <option value="30">30 秒（非推奨）</option>
+                <option value="60">1 分</option>
+                <option value="180">3 分</option>
+                <option value="600">10 分</option>
+                <option value="900">15 分</option>
+                <option value="1800">30 分</option>
+                <option value="3600">1 時間</option>
+              </select>
             </div>
           </div>
         </form>

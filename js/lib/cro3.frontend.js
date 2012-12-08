@@ -158,6 +158,7 @@
       setting
         .get($this.attr('name'))
         .done(function (value) {
+          console.log(value, $this.attr('name'));
           if (self.type === 'checkbox') {
             self.checked = value;
           } else {
