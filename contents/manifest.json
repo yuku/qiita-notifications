@@ -19,7 +19,8 @@
     "scripts": [
       "js/lib/jquery.js",
       "js/lib/cro3.background.js",
-      "js/background.js"
+      "js/background.js",
+      "js/ga.js"
     ]
   },
 
