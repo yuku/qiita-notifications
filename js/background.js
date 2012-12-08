@@ -24,7 +24,7 @@
   // Polling once a two minutes
   var origin = 'http://qiita.com';
   var last = 0; //Math.floor(Date.now() / 1000);
-  var prev_count = 0;  // previous notification count
+  var prev_count = NaN;  // previous notification count
   var poll = function (init) {
     // following
     // ---------
@@ -117,7 +117,10 @@
     // notifications
     // -------------
     $.ajax({ url: origin + '/api/notifications/count', dataType: 'json' })
-      .fail(function () { updateBadge(null); })
+      .fail(function () {
+        prev_count = NaN;
+        updateBadge(null);
+      })
       .done(function (data) {
         if (init) {
           updateBadge(data.count);
@@ -184,6 +187,7 @@
     switch (req.action) {
     case 'get.notifications':
       $.get(origin + '/api/notifications/read');
+      updateBadge(isNaN(prev_count) ? null : 0);
       res(pool.notifications);
       break;
     case 'get.public':
