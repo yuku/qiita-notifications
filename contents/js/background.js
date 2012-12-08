@@ -176,12 +176,12 @@
       });
 
     last = Math.floor(Date.now() / 1000);
+    setTimeout(poll, background.get('polling_interval').msg * 60 * 1000);
   };
 
 
   // start polling
   poll(true);
-  setInterval(poll, background.get('polling_interval').msg * 60 * 1000);
 
   chrome.extension.onRequest.addListener(function (req, sender, res) {
     switch (req.action) {
