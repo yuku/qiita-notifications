@@ -31,13 +31,13 @@ var renderNotifications = function (data) {
   container.html('');
 
   data.forEach(function (datum) {
-    console.log(datum);
     var users = datum.users.map(function (user) {
       return user.url_name;
     }).join(', ');
     var href, src, title, body, className;
     className = datum.seen ? '' : 'unread';
     src = datum.users[0].profile_image_url;
+    href = datum.object;
     switch (datum.action) {
     case 'stock':
       title = '<strong>' + users + '</strong>があなたの投稿をストックしました';
