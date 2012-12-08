@@ -1,88 +1,24 @@
 #Qiita Notifications extension
 Keep up with Qiita, anywhere on the web.
 
-#Requirements
+##License
+qiita-notifications
+Copyright (C) 2012 Yuku Takahashi
 
-- node
-- coffeescript
-- npm
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
 
-#Build
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
 
-```shell
-$ cd path/to/qiita-notifications
-$ npm install
-$ cake build
-```
-
-#Installation
-
-1. build
-2. goto chrome://settings/extensions
-3. check [Developer mode]
-4. click [Load unpacked extension]
-5. select qiita-notifications directory
-
-#History
-
-##1.1.0
-
-- Support new style feed interface.
-
-##1.0.0
-
-- Notify new posts via webNotifications.
-
-##0.4.0
-
-- Show unread notifications using webNotifications.
-- Add 'notifications' to permissions.
-
-##0.3.4
-
-- Show the number of unread chunks next to menu buttons.
-- Add 'https://qiita.com/' to permissions.
-
-##0.3.3
-
-- Translate not only buttons but also items.
-
-##0.3.2
-
-- Support languages: en, ja.
-
-##0.3.1
-
-- Highlight unread chunks.
-
-##0.3.0
-
-- Add 'Following' and 'All Posts' tabs.
-- Close popup window when a link is clicked.
-
-##0.2.4
-
-- Show '-' to logged out user on the icon.
-- Show 'Login required' on the popup.
-- Once popup is opened change seen of all notifications to true.
-
-##0.2.3
-
-- Change icon.
-
-##0.2.2
-
-- Added a link to qiita.com to top of the popup.
-
-##0.2.1
-
-- Modify crawling interval to 150 sec.
-
-##0.2.0
-
-- Can show the number of unread notifications.
-- Cache contents and count.
-
-##0.1.0
-
-- Can show notifications on the popup.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

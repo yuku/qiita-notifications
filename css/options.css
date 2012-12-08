@@ -1,0 +1,5 @@
+#sidebar{position:absolute;background-color:#d1f1cc;width:219px;top:0;left:0;bottom:0;border-right:1px solid #C2C2C2;box-shadow:inset -8px 0 30px -30px #000000;}#sidebar h1{padding-left:5px;font-size:26px;color:#707070;}
+#tab-container{overflow-y:auto;overflow-x:hidden;text-align:right;}#tab-container .tab{height:28px;padding-right:25px;border-top:1px solid transparent;border-bottom:1px solid transparent;font-size:16px;line-height:28px;color:#808080;cursor:pointer;}#tab-container .tab.active{background-color:#81d674;border-color:#BFBFBF;color:black;text-shadow:#DBDBDB 0 1px 0;box-shadow:inset -12px 0 30px -30px #000000;}
+#content{position:absolute;top:0;left:220px;right:0;bottom:0;overflow:auto;}#content>div{display:none;position:absolute;width:840px;top:0;left:0;bottom:0;padding:20px;padding-top:15px;}#content>div.active{display:block;}
+#content>div h2{margin:0;padding-bottom:5px;font-size:26px;color:#707070;line-height:1;}
+#content>div .setting{max-width:600px;margin-bottom:5px;}#content>div .setting label{margin-top:3px;}#content>div .setting label.checkbox{margin-left:5px;}
