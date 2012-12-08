@@ -212,5 +212,6 @@
       chrome.browserAction.setBadgeBackgroundColor({ color: color });
     }
   };
+  updateBadge(null); // init
 
 })(jQuery, CrO3);
