@@ -1,6 +1,13 @@
 #Qiita Notifications extension
 Keep up with Qiita, anywhere on the web.
 
+##Build
+
+```sh
+% npm install -g
+% make
+```
+
 ##License
 qiita-notifications
 Copyright (C) 2012 Yuku Takahashi
