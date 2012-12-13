@@ -82,13 +82,13 @@ var renderFollowing = function (data) {
       body = target.title;
       break;
     case 'follow_tag':
-      src = '#';
+      src = actors[0].profile_image_url;
       title = '<strong>' + actors[0].url_name + '</strong>が<strong>' +
               target.name + '</strong>タグをフォローしました';
       body = '';
       break;
     case 'follow_user':
-      src = '#';
+      src = actors[0].profile_image_url;
       title = '<strong>' + actors[0].url_name + '</strong>が<strong>' +
               target.url_name +  '</strong>をフォローしました';
       body = '';
