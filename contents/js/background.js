@@ -10,7 +10,7 @@
     notify_following     : true,
     notify_public        : false,
     notify_time          : 5,
-    polling_interval     : 180,
+    crawling_interval    : 180,
     token                : null,
     url_name             : null,
     following_tags       : [],
@@ -21,11 +21,11 @@
   var pool = { following: [], 'public': [], notifications: [] };
 
 
-  // Polling once a two minutes
+  // crawling once a two minutes
   var origin = 'http://qiita.com';
   var last = 0; //Math.floor(Date.now() / 1000);
   var prev_count = NaN;  // previous notification count
-  var poll = function (init) {
+  var crawl = function (init) {
     // following
     // ---------
     $.getJSON(origin + '/following?after=' + last, function (data) {
@@ -176,13 +176,13 @@
       });
 
     last = Math.floor(Date.now() / 1000);
-    setTimeout(poll, 10 * 1000);
-    //setTimeout(poll, background.get('polling_interval').msg * 60 * 1000);
+    setTimeout(crawl, 10 * 1000);
+    //setTimeout(crawl, background.get('crawling_interval').msg * 60 * 1000);
   };
 
 
-  // start polling
-  poll(true);
+  // start crawling
+  crawl(true);
 
   chrome.extension.onRequest.addListener(function (req, sender, res) {
     switch (req.action) {
