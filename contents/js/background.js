@@ -176,8 +176,7 @@
       });
 
     last = Math.floor(Date.now() / 1000);
-    setTimeout(crawl, 10 * 1000);
-    //setTimeout(crawl, background.get('crawling_interval').msg * 60 * 1000);
+    setTimeout(crawl, background.get('crawling_interval').msg * 1000);
   };
 
 
