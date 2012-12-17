@@ -1,4 +1,4 @@
-/*global chrome: false */
+/*global chrome: false JST: false */
 
 
 var renderItem = function (href, src, title, body, className) {
@@ -7,19 +7,13 @@ var renderItem = function (href, src, title, body, className) {
 
   className || (className = '');
 
-  return '<li class="' + className + '">' +
-      '<a href="' + href + '" target="_blank">' +
-        '<div class="left">' +
-          '<div class="icon">' +
-            '<img src="' + src + '">' +
-          '</div>' +
-        '</div>' +
-        '<div class="right">' +
-          '<div class="title">' + title + '</div>' +
-          '<div class="body">' + body + '</div>' +
-        '</div>' +
-      '</a>' +
-    '</li>';
+  return JST['popup/item']({
+    href      : href,
+    src       : src,
+    title     : title,
+    body      : body,
+    className : className
+  });
 };
 
 
