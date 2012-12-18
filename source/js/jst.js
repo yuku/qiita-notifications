@@ -2,7 +2,7 @@ module.exports = {
 
   "popup/item": [
     "<li class='<%= className %>'>",
-      "<a href='<%= href %>' target='_blank'>",
+      "<a <% if (href != '#') { %>href='<%= href %>' target='_blank' <% } %>>",
         "<div class='left'>",
           "<div class='icon'>",
             "<img src='<%= src %>'>",

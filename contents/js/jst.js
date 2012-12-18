@@ -4,9 +4,13 @@ var __t,__p='',__j=Array.prototype.join,print=function(){__p+=__j.call(arguments
 with(obj||{}){
 __p+='<li class=\''+
 ((__t=( className ))==null?'':__t)+
-'\'><a href=\''+
+'\'><a ';
+ if (href != '#') { 
+__p+='href=\''+
 ((__t=( href ))==null?'':__t)+
-'\' target=\'_blank\'><div class=\'left\'><div class=\'icon\'><img src=\''+
+'\' target=\'_blank\' ';
+ } 
+__p+='><div class=\'left\'><div class=\'icon\'><img src=\''+
 ((__t=( src ))==null?'':__t)+
 '\'></div></div><div class=\'right\'><div class=\'title\'>'+
 ((__t=( title ))==null?'':__t)+
