@@ -61,7 +61,7 @@ var renderFollowing = function (data) {
     var actors = datum.actors;
     var target = datum.target_content;
     var href, src, title, body;
-    href = target.url;
+    href = target.url || '#';
     switch (datum.action_type) {
     case 'stock':
       src = actors[0].profile_image_url;
