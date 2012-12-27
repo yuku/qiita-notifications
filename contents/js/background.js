@@ -37,34 +37,30 @@
         data.forEach(function (datum, index) {
           var actors = datum.actors;
           var target = datum.target_content;
-          var iconUrl, title, body;
+          var iconUrl = actors[0].profile_image_url;
+          var title, body;
           switch (datum.action_type) {
           case 'stock':
-            iconUrl = actors[0].profile_image_url;
             title = actors.map(function (actor) {
               return actor.url_name;
             }).join(', ') + 'がストックしました';
             body = target.title;
             break;
           case 'comment':
-            iconUrl = actors[0].profile_image_url;
             title = actors[0].url_name + 'がコメントしました';
             body = target.title;
             break;
           case 'follow_tag':
-            iconUrl = '#';
             title = actors[0].url_name + 'が' +
                     target.name + 'タグをフォローしました';
             body = '';
             break;
           case 'follow_user':
-            iconUrl = '#';
             title = actors[0].url_name + 'が' +
                     target.url_name +  'をフォローしました';
             body = '';
             break;
           case 'following_user_post':
-            iconUrl = actors[0].profile_image_url;
             title = actors[0].url_name + 'が投稿しました';
             body = target.title;
             break;
