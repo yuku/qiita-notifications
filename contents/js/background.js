@@ -153,9 +153,38 @@
                   title = users + 'があなたをフォローしました';
                   body = '';
                   break;
-                //case 'reply':
+                case 'update_posted_chunk':
+                  title = users + 'があなたのコメントした投稿にコメントしました';
+                  body = datum.short_title;
+                  break;
+                case 'lgtm':
+                  title = users + 'があなたの投稿にLGTMしました';
+                  body = datum.short_title;
+                  break;
+                case 'item_mention':
+                  title = users + 'があなたにメンションしました';
+                  body = datum.short_title;
+                  break;
+                case 'comment_mention':
+                  title = users + 'があなたにコメントでメンションしました';
+                  body = datum.short_title;
+                  break;
+                case 'receive_patch':
+                  title = users + 'があなたの投稿へ編集リクエストを送りました';
+                  body = datum.short_title;
+                  break;
+                case 'accept_patch':
+                  title = users + 'があなたの編集リクエストを採用しました';
+                  body = datum.short_title;
+                  break;
+                case 'reply':
+                  title = users + 'があなたの投稿にコメントしました';
+                  body = datum.short_title;
+                  break;
                 default:
-                  return; // ignore other actions
+                  title = users + 'が何かしました';
+                  body = '';
+                  break;
                 }
                 var notification =
                     window.webkitNotifications.createNotification(iconUrl, title, body);

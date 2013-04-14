@@ -34,14 +34,45 @@ var renderNotifications = function (data) {
     href = datum.object;
     switch (datum.action) {
     case 'stock':
-      title = '<strong>' + users + '</strong>があなたの投稿をストックしました';
+      title = '<strong>' + users + '</strong>があなたの投稿を<strong>ストック</strong>しました';
       body = datum.short_title;
       break;
     case 'follow_user':
-      title = '<strong>' + users + '</strong>があなたをフォローしました';
+      title = '<strong>' + users + '</strong>があなたを<strong>フォロー</strong>しました';
       body = '';
       break;
-    //case 'reply':
+    case 'lgtm':
+      title = '<strong>' + users + '</strong>があなたの投稿に<strong>LGTM</strong>しました';
+      body = datum.short_title;
+      break;
+    case 'item_mention':
+      title = '<strong>' + users + '</strong>があなたを<strong>メンション</strong>しました';
+      body = datum.short_title;
+      break;
+    case 'comment_mention':
+      title = '<strong>' + users + '</strong>があなたをコメントで<strong>メンション</strong>しました';
+      body = datum.short_title;
+      break;
+    case 'update_stocked_chunk':
+      title = '<strong>' + users + '</strong>があなたのストックした投稿に<strong>コメント</strong>しました';
+      body = datum.short_title;
+      break;
+    case 'update_posted_chunk':
+      title = '<strong>' + users + '</strong>があなたのコメントした投稿に<strong>コメント</strong>しました';
+      body = datum.short_title;
+      break;
+    case 'receive_patch':
+      title = '<strong>' + users + '</strong>があなたの投稿に<strong>編集リクエスト</strong>を送りました';
+      body = datum.short_title;
+      break;
+    case 'accept_patch':
+      title = '<strong>' + users + '</strong>があなたの<strong>編集リクエスト</strong>を採用しました';
+      body = datum.short_title;
+      break;
+    case 'reply':
+      title = '<strong>' + users + '</strong>があなたの投稿に<strong>コメント</strong>しました';
+      body = datum.short_title;
+      break;
     default:
       return; // ignore other actions
     }
