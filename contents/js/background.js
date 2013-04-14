@@ -28,7 +28,7 @@
   var crawl = function (init) {
     // following
     // ---------
-    $.getJSON(origin + '/following?after=' + last, function (data) {
+    $.getJSON(origin + '/api/following?after=' + last, function (data) {
       // Unshift fetched data to pool
       Array.prototype.unshift.apply(pool.following, data);
 
@@ -87,7 +87,7 @@
 
     // public
     // ------
-    $.getJSON(origin + '/public?after=' + last, function (data) {
+    $.getJSON(origin + '/api/public?after=' + last, function (data) {
       // Unshift fetched data to pool
       Array.prototype.unshift.apply(pool['public'], data);
 
