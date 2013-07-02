@@ -69,6 +69,16 @@
             title = actors[0].name + 'に新しい投稿がありました';
             body = target.title;
             break;
+          case 'tweet':
+            iconUrl = '/img/twitter.png';
+            title = 'あなたの投稿が "ツイート" されました';
+            body = target.title;
+            break;
+          case 'like':
+            iconUrl = '/img/facebook.png';
+            title = 'あなたの投稿が "いいね" されました';
+            body = target.title;
+            break;
           default:
             // ignore other action types such as own_post
             return;
@@ -179,6 +189,14 @@
                   break;
                 case 'reply':
                   title = users + 'があなたの投稿にコメントしました';
+                  body = datum.short_title;
+                  break;
+                case 'tweet':
+                  title = 'あなたの投稿が「ツイート」されました';
+                  body = datum.short_title;
+                  break;
+                case 'like':
+                  title = 'あなたの投稿が「いいね」されました';
                   body = datum.short_title;
                   break;
                 default:
