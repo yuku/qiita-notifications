@@ -167,6 +167,10 @@
                   title = users + 'があなたのコメントした投稿にコメントしました';
                   body = datum.short_title;
                   break;
+                case 'lgtm':
+                  title = users + 'があなたの投稿にLGTMしました';
+                  body = datum.short_title;
+                  break;
                 case 'item_mention':
                   title = users + 'があなたにメンションしました';
                   body = datum.short_title;
