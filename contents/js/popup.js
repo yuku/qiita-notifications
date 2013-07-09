@@ -30,12 +30,12 @@ var renderNotifications = function (data) {
     }).join(', ');
     var href, src, title, body, className;
     className = datum.seen ? '' : 'unread';
-    src = datum.users[0].profile_image_url;
+    src = users !== '' ? datum.users[0].profile_image_url : '';
     href = datum.object;
+    body = datum.short_title;
     switch (datum.action) {
     case 'stock':
       title = '<strong>' + users + '</strong>があなたの投稿を<strong>ストック</strong>しました';
-      body = datum.short_title;
       break;
     case 'follow_user':
       title = '<strong>' + users + '</strong>があなたを<strong>フォロー</strong>しました';
@@ -43,35 +43,35 @@ var renderNotifications = function (data) {
       break;
     case 'lgtm':
       title = '<strong>' + users + '</strong>があなたの投稿に<strong>LGTM</strong>しました';
-      body = datum.short_title;
       break;
     case 'item_mention':
       title = '<strong>' + users + '</strong>があなたを<strong>メンション</strong>しました';
-      body = datum.short_title;
       break;
     case 'comment_mention':
       title = '<strong>' + users + '</strong>があなたをコメントで<strong>メンション</strong>しました';
-      body = datum.short_title;
       break;
     case 'update_stocked_chunk':
       title = '<strong>' + users + '</strong>があなたのストックした投稿に<strong>コメント</strong>しました';
-      body = datum.short_title;
       break;
     case 'update_posted_chunk':
       title = '<strong>' + users + '</strong>があなたのコメントした投稿に<strong>コメント</strong>しました';
-      body = datum.short_title;
       break;
     case 'receive_patch':
       title = '<strong>' + users + '</strong>があなたの投稿に<strong>編集リクエスト</strong>を送りました';
-      body = datum.short_title;
       break;
     case 'accept_patch':
       title = '<strong>' + users + '</strong>があなたの<strong>編集リクエスト</strong>を採用しました';
-      body = datum.short_title;
       break;
     case 'reply':
       title = '<strong>' + users + '</strong>があなたの投稿に<strong>コメント</strong>しました';
-      body = datum.short_title;
+      break;
+    case 'tweet':
+      src = '/img/twitter.png';
+      title = 'あなたの投稿が<strong>ツイート</strong>されました';
+      break;
+    case 'like':
+      src = '/img/facebook.png';
+      title = 'あなたの投稿が<strong>いいね</strong>されました';
       break;
     default:
       return; // ignore other actions
