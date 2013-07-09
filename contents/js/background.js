@@ -1,4 +1,4 @@
-/*global CrO3: false chrome: false */
+/* global CrO3: false, chrome: false */
 
 
 (function ($, CrO3) {

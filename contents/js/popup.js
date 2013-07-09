@@ -1,5 +1,4 @@
-/*global chrome: false JST: false */
-
+/* global chrome: false, JST: false */
 
 var renderItem = function (href, src, title, body, className) {
 
