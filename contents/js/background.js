@@ -66,16 +66,6 @@
             title = actors[0].name + 'に新しい投稿がありました';
             body = target.title;
             break;
-          case 'tweet':
-            iconUrl = '/img/twitter.png';
-            title = 'あなたの投稿が "ツイート" されました';
-            body = target.title;
-            break;
-          case 'like':
-            iconUrl = '/img/facebook.png';
-            title = 'あなたの投稿が "いいね" されました';
-            body = target.title;
-            break;
           default:
             // ignore other action types such as own_post
             return;
@@ -196,10 +186,16 @@
                   title = 'あなたの投稿が「いいね」されました';
                   body = datum.short_title;
                   break;
-                default:
-                  title = users + 'が何かしました';
-                  body = '';
+                case 'new_comment_for_stocker':
+                  title = users + 'があなたがストックした投稿にコメントしました';
+                  body = datum.short_title;
                   break;
+                case 'stocked_item_update':
+                  title = users + 'があなたがストックした投稿を更新しました';
+                  body = datum.short_title;
+                  break;
+                default:
+                  return;
                 }
                 var notification =
                     window.webkitNotifications.createNotification(iconUrl, title, body);

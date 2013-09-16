@@ -70,6 +70,12 @@ var renderNotifications = function (data) {
       src = '/img/facebook.png';
       title = 'あなたの投稿が<strong>いいね</strong>されました';
       break;
+    case 'new_comment_for_stocker':
+      title = '<strong>' + users + '</strong>があなたのストックした投稿に<strong>コメント</strong>しました';
+      break;
+    case 'stocked_item_update':
+      title = '<strong>' + users + '</strong>があなたのストックした投稿を<strong>更新</strong>しました';
+      break;
     default:
       return; // ignore other actions
     }
