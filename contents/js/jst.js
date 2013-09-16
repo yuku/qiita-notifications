@@ -8,6 +8,8 @@ __p+='<li class=\''+
  if (href != '#') { 
 __p+='href=\''+
 ((__t=( href ))==null?'':__t)+
+'?utm_source=chrome-extention&utm_medium=browser-extention&utm_content='+
+((__t=( type ))==null?'':__t)+
 '\' target=\'_blank\' ';
  } 
 __p+='><div class=\'left\'><div class=\'icon\'><img src=\''+

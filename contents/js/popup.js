@@ -1,4 +1,4 @@
-var renderItem = function (href, src, title, body, className) {
+var renderItem = function (href, src, title, body, className, type) {
 
   'use strict';
 
@@ -9,7 +9,8 @@ var renderItem = function (href, src, title, body, className) {
     src       : src,
     title     : title,
     body      : body,
-    className : className
+    className : className,
+    type      : type
   });
 };
 
@@ -79,7 +80,7 @@ var renderNotifications = function (data) {
     default:
       return; // ignore other actions
     }
-    container.append(renderItem(href, src, title, body, className));
+    container.append(renderItem(href, src, title, body, className, 'notifications'));
   });
 };
 
@@ -135,7 +136,7 @@ var renderFollowing = function (data) {
       // ignore other action types such as own_post
       return;
     }
-    container.append(renderItem(href, src, title, body));
+    container.append(renderItem(href, src, title, body, 'following'));
   });
 };
 
@@ -154,7 +155,7 @@ var renderPublic = function (data) {
     var title = '<strong>' + user.url_name + '</strong>が投稿しました';
     var body = datum.title;
     var href = datum.url;
-    container.append(renderItem(href, src, title, body));
+    container.append(renderItem(href, src, title, body, 'public'));
   });
 
 };
