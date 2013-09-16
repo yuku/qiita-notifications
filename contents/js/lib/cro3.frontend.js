@@ -5,8 +5,6 @@
 
 (function ($) {
 
-  /*global chrome: false */
-
   'use strict';
 
   // Initial Setup

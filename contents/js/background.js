@@ -1,6 +1,3 @@
-/* global CrO3: false, chrome: false */
-
-
 (function ($, CrO3) {
 
   'use strict';

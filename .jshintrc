@@ -10,5 +10,7 @@
   "debug": true,
 
   "eqnull": true,
-  "expr": true
+  "expr": true,
+
+  "predef": ["CrO3", "chrome", "JST"]
 }

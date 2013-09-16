@@ -4,8 +4,6 @@
 // CrO3 may be freely distributed under the MIT license.
 
 (function () {
-  
-  /*global chrome: false */
 
   'use strict';
 
