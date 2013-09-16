@@ -2,7 +2,7 @@
   "author": "Yuku Takahashi <taka84u9@gmail.com>",
   "name": "qiita-notifications",
   "description": "Keep in touch with Qiita anywhere on the Web.",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/yuku-t/qiita-notifications.git"
