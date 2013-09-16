@@ -136,7 +136,7 @@ var renderFollowing = function (data) {
       // ignore other action types such as own_post
       return;
     }
-    container.append(renderItem(href, src, title, body, 'following'));
+    container.append(renderItem(href, src, title, body, '', 'following'));
   });
 };
 
@@ -149,13 +149,12 @@ var renderPublic = function (data) {
   container.html('');
 
   data.forEach(function (datum) {
-    console.log(datum);
     var user = datum.user;
     var src = user.profile_image_url;
     var title = '<strong>' + user.url_name + '</strong>が投稿しました';
     var body = datum.title;
     var href = datum.url;
-    container.append(renderItem(href, src, title, body, 'public'));
+    container.append(renderItem(href, src, title, body, '', 'public'));
   });
 
 };
