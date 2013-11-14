@@ -43,7 +43,7 @@ var renderNotifications = function (data) {
       title = '<strong>' + users + '</strong>があなたの投稿に<strong>LGTM</strong>しました';
       break;
     case 'item_mention':
-      title = '<strong>' + users + '</strong>があなたを<strong>メンション</strong>しました';
+      title = '<strong>' + users + '</strong>があなたに<strong>メンション</strong>しました';
       break;
     case 'comment_mention':
       title = '<strong>' + users + '</strong>があなたをコメントで<strong>メンション</strong>しました';
